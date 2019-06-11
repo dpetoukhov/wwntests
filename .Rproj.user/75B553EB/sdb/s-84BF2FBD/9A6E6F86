@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "Package: wwntests\nType: Package\nTitle: General White Noise Tests for Functional Time Series\nVersion: 1.0.0\nAuthor: Daniel Petoukhov\nMaintainer: Daniel Petoukhov <dvpetouk@uwaterloo.ca>\nDescription: Provides an array of functional white noise hypothesis tests and related visualizations.\nLicense: GPL-3\nEncoding: UTF-8\nLazyData: true\nImports: \n    sde,\n    stats,\n    ftsa,\n    rainbow,\n    MASS,\n    graphics\nSuggests:\n    testthat,\n    xtable,\n    knitr,\n    rmarkdown,\n    fOptions,\n    CompQuadForm,\n    tensorA\nRoxygenNote: 6.1.1\nVignetteBuilder: knitr\n",
+    "created" : 1560275742970.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3532738406",
+    "id" : "9A6E6F86",
+    "lastKnownWriteTime" : 1559630072,
+    "last_content_update" : 1559630072,
+    "path" : "~/wwntests/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "dcf"
+}

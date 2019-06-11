@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\noutput: github_document\n---\n\n<!-- README.md is generated from README.Rmd. Please edit that file -->\n\n```{r setup, include = FALSE}\nknitr::opts_chunk$set(\n  collapse = TRUE,\n  comment = \"#>\",\n  fig.path = \"man/figures/README-\",\n  out.width = \"100%\"\n)\n```\n# wwntests\n\nThe goal of wwntests is to ...\n\n## Installation\n\nYou can install the released version of wwntests from [CRAN](https://CRAN.R-project.org) with:\n\n``` r\ninstall.packages(\"wwntests\")\n```\n\n## Example\n\nThis is a basic example which shows you how to solve a common problem:\n\n```{r example}\n## basic example code\n```\n\nWhat is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:\n\n```{r cars}\nsummary(cars)\n```\n\nYou'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.\n\nYou can also embed plots, for example:\n\n```{r pressure, echo = FALSE}\nplot(pressure)\n```\n\nIn that case, don't forget to commit and push the resulting figure files, so they display on GitHub!\n",
+    "created" : 1560276149383.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3403294399",
+    "id" : "6E961391",
+    "lastKnownWriteTime" : 1560276149,
+    "last_content_update" : 1560276149,
+    "path" : "~/wwntests/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
