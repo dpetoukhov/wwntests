@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "test_mat <- matrix(0, nrow = 1, ncol = 3)\nkernels <- c('Barlett', 'Parzen', 'Daniell')\ncolnames(test_mat) <- kernels\n\nfor (j in 1:3) {\n  for (k in 1:1000) {\n    b <- brown_motion(250, 250)\n    res <- fport_test(b, test = 'spectral', kernel = kernels[j])\n    if (res$p_value < 0.05) {\n      test_mat[j] <- test_mat[j] + 1\n    }\n  }\n}\n\ntest_mat\n\ntest_mat_nonwwn <- matrix(0, nrow = 1, ncol = 3)\nkernels <- c('Barlett', 'Parzen', 'Daniell')\ncolnames(test_mat_nonwwn) <- kernels\n\nfor (j in 1:3) {\n  for (k in 1:1000) {\n    f <- far_1_S(250, 250, 0.75)\n    res <- fport_test(f, test = 'spectral', kernel = kernels[j])\n    if (res$p_value < 0.05) {\n      test_mat_nonwwn[j] <- test_mat_nonwwn[j] + 1\n    }\n  }\n}\n\ntest_mat_nonwwn\n\ntest_boot <- vector('numeric', length = 250)\nfor (i in 1:250) {\n  b <- brown_motion(250, 150)\n  test_boot <- Q_WS_hyp_test(b, lag = 1, bootstrap = TRUE)$reject\n}\n\ntest_mat_boot <- matrix(0, nrow = 1, ncol = 2)\n\nfor (i in 1:2) {\n  results <- vector('numeric', length = 500)\n  for (j in 1:500) {\n    if (i == 1) {\n      b <- brown_motion(250, 150)\n    } else if (i == 2) {\n      b <- far_1_S(250, 150, 0.75)\n    }\n    p <- Q_WS_hyp_test(b, lag = 1, bootstrap = TRUE)\n    results[j] <- p$quantile < p$statistic\n  }\n  test_mat_boot[i] <- sum(results)\n}\n\n\nbands_b <- vector('numeric', length = 25)\nbands_p <- vector('numeric', length = 25)\nbands_d <- vector('numeric', length = 25)\nss <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)\nfor (S in 1:10) {\n  for (j in 1:25) {\n    f <- far_1_S(250, 250, ss[S])\n    bands_b[S] <- bands_b[S] + adaptive_bandwidth(f, 'Barlett')\n    bands_p[S] <- bands_p[S] + adaptive_bandwidth(f, 'Parzen')\n    bands_d[S] <- bands_d[S] + adaptive_bandwidth(f, 'Daniell')\n  }\n  bands_b[S] <- bands_b[S] / 25\n  bands_p[S] <- bands_p[S] / 25\n  bands_d[S] <- bands_d[S] / 25\n}\n\nbootstraps <- list()\nstats <- list()\nfor (i in 1:100) {\n  b <- brown_motion(250, 250)\n  bootstraps[[i]] <- raw_data_block_bootsrap(b, 20)\n  stats[[i]] <- t_statistic_Q(bootstraps[[i]], 1)\n}\n\n",
+    "created" : 1557913962993.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2840643837",
+    "id" : "74572F3C",
+    "lastKnownWriteTime" : 1558658303,
+    "last_content_update" : 1558679311858,
+    "path" : "~/wwntests/R/Untitled.R",
+    "project_path" : "R/Untitled.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

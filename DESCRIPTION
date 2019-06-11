@@ -1,0 +1,27 @@
+Package: wwntests
+Type: Package
+Title: General White Noise Tests for Functional Time Series
+Version: 1.0.0
+Author: Daniel Petoukhov
+Maintainer: Daniel Petoukhov <dvpetouk@uwaterloo.ca>
+Description: Provides an array of functional white noise hypothesis tests and related visualizations.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    sde,
+    stats,
+    ftsa,
+    rainbow,
+    MASS,
+    graphics
+Suggests:
+    testthat,
+    xtable,
+    knitr,
+    rmarkdown,
+    fOptions,
+    CompQuadForm,
+    tensorA
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr
