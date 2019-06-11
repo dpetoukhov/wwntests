@@ -1,0 +1,24 @@
+"0","fport_test(f_data = b, test = 'spectral', suppress_raw_output = TRUE)"
+"1"," Spectral Test
+
+"
+"1"," "
+"1","null hypothesis: the series is iid
+"
+"1"," "
+"1","p-value = 0.560278
+"
+"1"," "
+"1","sample size = 200
+"
+"1"," "
+"1","kernel function = Bartlett
+"
+"1"," "
+"1","bandwidth = 3.959496
+"
+"1"," "
+"1","bandwidth selection = adaptive
+
+
+"

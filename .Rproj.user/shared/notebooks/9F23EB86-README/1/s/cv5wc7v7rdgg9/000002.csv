@@ -1,0 +1,18 @@
+"0","fport_test(f_data = b, test = 'independence', components = 3, lag = 3, suppress_raw_output = TRUE)"
+"1"," Independence Test
+
+"
+"1"," "
+"1","null hypothesis: the series is iid
+"
+"1"," "
+"1","p-value = 0.911325
+"
+"1"," "
+"1","number of principal components = 3
+"
+"1"," "
+"1","maximum lag = 3
+
+
+"

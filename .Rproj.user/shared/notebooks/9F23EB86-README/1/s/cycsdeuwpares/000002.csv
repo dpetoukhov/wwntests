@@ -1,0 +1,18 @@
+"0","fport_test(f_data = b, test = 'single-lag', lag = 1, suppress_raw_output = TRUE)"
+"1"," Single-Lag Test
+
+"
+"1"," "
+"1","null hypothesis: the series is a weak white noise
+"
+"1"," "
+"1","p-value = 0.799821
+"
+"1"," "
+"1","sample size = 200
+"
+"1"," "
+"1","lag = 1
+
+
+"
