@@ -1,4 +1,0 @@
-"0","fport_test(f, test = 'independence', components = 3, lag = 3)"
-"2","Error in fport_test(f, test = ""independence"", components = 3, lag = 3) : 
-  object 'f' not found
-"

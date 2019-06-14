@@ -31,7 +31,7 @@ spectral_t_statistic <- function(f_data, kernel = 'Bartlett', bandwidth = 'adapt
   } else if (!is.numeric(bandwidth)) {
     stop("Please see the documentation for valid bandwith arguments.")
   }
-  data_inner_prod <- crossprod(f_data) / J # why is this what we want...
+  data_inner_prod <- crossprod(f_data) / J
   C_hat_HS_norm <- numeric(0)
   for (j in 0:(N-1)) {
     C_hat_HS_norm[j+1] <- N^(-2) * sum(data_inner_prod[(j+1):N, (j+1):N] * data_inner_prod[1:(N-j), 1:(N-j)])
