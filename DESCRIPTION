@@ -4,7 +4,7 @@ Title: General White Noise Tests for Functional Time Series
 Version: 1.0.0
 Author: Daniel Petoukhov
 Maintainer: Daniel Petoukhov <dvpetouk@uwaterloo.ca>
-Description: Provides an array of functional white noise hypothesis tests and related visualizations.
+Description: Provides an array of functional hypothesis tests and related visualizations.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

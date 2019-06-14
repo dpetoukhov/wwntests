@@ -95,7 +95,7 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
       results
     }
   } else if (iid == TRUE) {
-    results <- single_lag_test(f_data, iid = TRUE, alpha=alpha)
+    results <- Q_WS_hyp_test(f_data, iid = TRUE, lag = lag, alpha=alpha)
     if (suppress_print_output == FALSE) {
       title_print <- sprintf(" Single-Lag Test (iid assumption)\n\n")
       test_type <- 'the series is a strong white noise\n'
