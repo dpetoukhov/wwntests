@@ -2,25 +2,26 @@
 % Please edit documentation in R/main_tests.R
 \name{spectral_test}
 \alias{spectral_test}
-\title{\code{spectral_test} Computes the p-value of the size alpha spectral density based white noise
-test.}
+\title{Spectral Density Test}
 \usage{
 spectral_test(f_data, kernel = "Bartlett", bandwidth = "adaptive",
   alpha = 0.05, suppress_raw_output = FALSE,
   suppress_print_output = FALSE)
 }
 \arguments{
-\item{f_data}{the functional data matrix with observed functions in the columns}
+\item{f_data}{The functional data matrix with observed functions in the columns}
 
-\item{kernel}{the kernel function to use. The currently supported kernels are 'Bartlett', 'Parzen',
-and 'Daniell'. The default kernel is 'Bartlett'.}
+\item{kernel}{A String specifying the kernel function to use. The currently supported kernels are the
+'Bartlett' and  'Parzen' kernels. The default kernel is 'Bartlett'.}
 
-\item{bandwidth}{specifies the bandwidth to use. Currently admitted arguments are positive
-integers, 'static' which computes the bandwith p via p = n^(1/(2q+1)) where n is the sample
-size and q is the kernel order, or 'adaptive' which uses a bandwith selection method that
-is based on the functional data.}
+\item{bandwidth}{A String or positive Integer value which specifies the bandwidth to use. Currently admitted
+string handles are 'static' which computes the bandwith p via p = n^(1/(2q+1)) where n is the sample size
+and q is the kernel order, or 'adaptive' which uses a bandwith selection method that is based on the
+functional data.}
 
-\item{alpha}{= the significance level to be used for the test; 0.05 by default.}
+\item{alpha}{Numeric value between 0 and 1 specifying the significance level to be used for the test.
+The significance level is 0.05 by default. Note, the significance value is only ever used to compute the
+1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
 contining the p-value, quantile, and statistic.}
@@ -29,8 +30,10 @@ contining the p-value, quantile, and statistic.}
 output to the console.}
 }
 \value{
-A list containing the p-value, the quantile, and a boolean value indicating whether or not the
-hypothesis is rejected.
+If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+containing a short description of the test, the p-value, and additional information about the test if
+suppress_print_output = FALSE.
 }
 \description{
 The "spectral" portmanteau test is based on the spectral density operator. It essentially measures
@@ -38,11 +41,15 @@ the proximity of a functional time series to a white noise - the constant spectr
 uncorrelated series. Unlike the "single-lag" and "multi-lag" tests, this test is not for general white noise
 series, and may not hold under functional conditionally heterscedastic assumptions.
 }
+\details{
+\code{spectral_test} Computes the spectral hypothesis test under a user-specified kernel function and
+bandwidth; automatic bandwidth selection methods are provided.
+}
 \examples{
-b = brown_motion(100, 50)
+b <- brown_motion(100, 50)
 spectral_test(b)
 spectral_test(b, kernel = 'Parzen', bandwidth = 'adaptive')
-spectral_test(b, kernel = 'Daniell', bandwidth = 2)
+spectral_test(b, kernel = 'Bartlett', bandwidth = 2)
 
 }
 \references{

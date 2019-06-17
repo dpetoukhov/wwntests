@@ -10,13 +10,13 @@ autocorrelation_coeff_plot(f_data, K = 20, alpha = 0.05, M = NULL,
 \arguments{
 \item{f_data}{The functional data matrix with observed functions in the columns.}
 
-\item{K}{The maximum lag for which to compute the single-lag test (tests will be computed for lags
-h in 1:K).}
+\item{K}{A positive Integer value. The maximum lag for which to compute the single-lag test (tests
+will be computed for lags h in 1:K).}
 
-\item{alpha}{Positive numeric Value. The significance level to be used in the specified hypothesis test.
-The default value is 0.05.}
+\item{alpha}{A numeric value between 0 and 1 specifying the significance level to be used in the single-lag
+test. The default value is 0.05.}
 
-\item{M}{Positive Integer value. Determines the number of Monte-Carlo simulations employed in the
+\item{M}{A positive Integer value. Determines the number of Monte-Carlo simulations employed in the
 Welch-Satterthwaite approximation of the limiting distribution of the test statistics, for each test.}
 
 \item{low_disc}{A Boolean value, FALSE by default. If given TRUE, uses low-discrepancy sampling in the
@@ -34,10 +34,10 @@ autocorrelation coefficients at lags h = 1:K under both weak white noise and str
 noise assumptions. It plots the coefficients as well as the bounds for all lags h = 1:K.
 }
 \details{
-This function computes and plots autocorrelation coefficients at lag h, for h in 1:K. It also computes
-an estimated asymptotic 1 - alpha quantile of the single-lag test statistic, under the assumption that the series
-forms a weak white noise. Additionally, it computes a similar bound under the assumption the the series form a
-strong white noise. Please see the vignette or the references for a more complete treatment.
+This function computes and plots autocorrelation coefficients at lag h, for h in 1:K. It also
+computes an estimated asymptotic 1 - alpha confidence bound, under the assumption that the series
+forms a weak white noise. Additionally, it computes a similar bound under the assumption the the series
+form a strong white noise. Please see the vignette or the references for a more complete treatment.
 }
 \examples{
 b <- brown_motion(75, 40)

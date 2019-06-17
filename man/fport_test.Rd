@@ -7,19 +7,19 @@
 fport_test(f_data, test = "multi-lag", lag = NULL, iid = FALSE,
   M = NULL, low_disc = FALSE, kernel = "Bartlett",
   bandwidth = "adaptive", components = 3, bootstrap = FALSE,
-  block_size = 5, moving = FALSE, straps = 300, alpha = 0.05,
-  complete_test = FALSE, suppress_raw_output = FALSE,
+  block_size = "adaptive", moving = FALSE, straps = 300,
+  alpha = 0.05, complete_test = FALSE, suppress_raw_output = FALSE,
   suppress_print_output = FALSE)
 }
 \arguments{
 \item{f_data}{The functional data matrix with observed functions in the columns.}
 
-\item{test}{A string specifying the hypothesis test. Currently available tests are referred to by their
+\item{test}{A String specifying the hypothesis test. Currently available tests are referred to by their
 string handles: "single-lag", "multi-lag", "spectral", "independence", and "imhof". Please see the Details
 section of the documentation, or the vignette, for a short overview of the available tests. For a more
 complete treatment of these hypothesis tests, please consult the references.}
 
-\item{lag}{Positive integer value. Only used for the "single-lag", "multi-lag", "independence", and "imhof" tests.
+\item{lag}{A positive integer value. Only used for the "single-lag", "multi-lag", "independence", and "imhof" tests.
 This parameter specifies the single lag, or maximum lag, to be used by the specified test.}
 
 \item{iid}{Only used for the "single-lag" and "multi-lag" tests. A Boolean value, FALSE by default. If given TRUE,
@@ -34,55 +34,56 @@ If given TRUE, uses low-discrepancy sampling in the Monte-Carlo method. Note, lo
 yield deterministic results. Requires the 'fOptions' package.}
 
 \item{kernel}{Only used for the "spectral" test. A String, 'Bartlett' by default. Specifies the kernel to be
-used in the "spectral" test. Currently supported kernels are the 'Bartlett', 'Parzen', and 'Daniell' kernels.}
+used in the "spectral" test. Currently supported kernels are the 'Bartlett' and 'Parzen' kernels.}
 
 \item{bandwidth}{Only used for the "spectral" test. Either a String or a positive Integer value, 'adaptive' by
-default. Determines the bandwidth (or lag-window) to be used for the test. If given the string handle is
-'adaptive', the bandwidth is computed via a bandwidth selection method which aims to minimize the integrated
-normed error of the spectral density operator. If the given string handle is 'static', the bandwidth is
-computed to be n^(1/(2q + 1)), where n is the sample size and q is the kernel order. If a positive integer
-is given, that will be the bandwidth that is used.}
+default. Determines the bandwidth (or lag-window) to be used for the test. Given the string handle 'adaptive',
+the bandwidth is computed via a bandwidth selection method which aims to minimize the integrated normed
+error of the spectral density operator. If the given string handle is 'static', the bandwidth is computed
+to be n^(1/(2q + 1)), where n is the sample size and q is the kernel order. If a positive integer is
+given, that will be the bandwidth that is used.}
 
 \item{components}{Only used for the "independence" test. A positive Integer value. Determines the number of
-functional principal components to compute.}
+functional principal components to use (ranked by their importance).}
 
 \item{bootstrap}{Only used for the "single-lag" test. A Boolean value, FALSE by default. If given TRUE, the
 hypothesis test is evaluated by approximating the limiting distribution of the test statistic via a block
 bootstrapping process.}
 
-\item{block_size}{Only used for the "single-lag" test and if 'bootstrap' = TRUE. A positive Integer value,
-with the default value being computed via the adaptive bandwith selection method in the "spectral" test.
+\item{block_size}{Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer
+value, with the default value being computed via the adaptive bandwith selection method in the "spectral" test.
 Determines the block size (of each block in each bootstrap sample) if the test is being bootstrapped.}
 
-\item{moving}{Only used for the "single-lag" test and if 'bootstrap' = TRUE. A Boolean value, FALSE by
-default If given TRUE, the performed block bootstrap will be moving rather than stationary.}
+\item{moving}{Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A Boolean value, FALSE
+by default If given TRUE, the performed block bootstrap will be moving rather than stationary.}
 
-\item{straps}{Only used for the "single-lag" test and if 'bootstrap' = TRUE. A positive Integer with a
-default value of 300. Determines the number of bootstrap samples to take if the test is being bootstrapped.}
+\item{straps}{Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer with
+a default value of 300. Determines the number of bootstrap samples to take if the test is being bootstrapped.}
 
-\item{alpha}{Positive numeric value. The significance level to be used in the specified hypothesis test.
-The default value is 0.05. Note, the significance value is only ever used to compute the 1-alpha quantile
-of the limiting distribution of the specified test's test statistic.}
+\item{alpha}{Numeric value between 0 and 1 specifying the significance level to be used in the specified
+hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{complete_test}{A Boolean value, FALSE by default. If TRUE, the function requires no other paramters
-other than f_data, and will return a table with a signle column containing p_values and an array of tests
+other than f_data, and will return a table with a signle column containing p-values from an array of tests
 contained in the rows.}
 
 \item{suppress_raw_output}{A Boolean value, FALSE by default. If given TRUE, the function will not return a
 list containing the p-value, quantile and statistic, and instead only prints output to the console.}
 
-\item{suppress_print_output}{Boolean value, FALSE by default. If TRUE, the function will not print any
+\item{suppress_print_output}{A Boolean value, FALSE by default. If TRUE, the function will not print any
 output to the console.}
 }
 \value{
-A list containing the test statistic, the 1-alpha quantile of the limiting distribution, and the
-p-value computed from the specified hypothesis test. Also prints output containing a short description of
-the test, the p-value, and additional information about the test. If 'complete-test' = TRUE, will return
-a 1-column table instead containing the p-values for a variety of tests, which are given short descriptions
-in the index of the table.
+If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+containing a short description of the test, the p-value, and additional information about the test if
+suppress_print_output = FALSE. If 'complete-test' = TRUE, will return a 1-column table instead containing
+the p-values for a variety of tests, which are given short descriptions in the index of the table.
 }
 \description{
-\code{fport_test} Computes a variety of functional portmanteau hypothesis tests.
+\code{fport_test} Computes a variety of functional portmanteau hypothesis tests. All hypothesis tests in this
+package are accessible through this function.
 }
 \details{
 The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
@@ -117,26 +118,25 @@ resulting lagged cross-variances. This test is not for general white noise serie
 functional conditionally heteroscedastic assumptions.
 The required parameters for this test are 'lag' and 'components'. The 'lag' parameter determines the maximum lag at
 which the test is evaluated. The 'components' parameter determines the number of the most important principal
-components to use (importance is determined by the proportion of the variance that is explained the by the
+components to use (importance is determined by the proportion of the variance that is explained by the
 individual principal component.)
 
-The "imhof" portmanteau test is a variant of the "single-lag" test. While the "single-lag" test computes the
+The "imhof" portmanteau test is an analogue of the "single-lag" test. While the "single-lag" test computes the
 limiting distribution of the test statistic via a Welch-Satterthwaite approximation, the "imhof" test directly
 computes the coefficents of the quadratic form in Normal variables which the test statistic converges too as
 the sample size goes to infinity. We warn the user that this test is extremely computationally expensive, and
 is only recommended for small datasets as a means of cross-verification against the single-lag test.
 The required parameter for this test is 'lag', which determines the lag at which the test is evaluated.
-The "imhof" test requires the "tensorA" and "CompQuadForm" packages.
+The "imhof" test requires the "tensorA" and "CompQuadForm" packages. Note also that the imhof test does not
+return a statistic, and thus returns a list with only 2 elements if suppress_raw_output = FALSE.
 }
 \examples{
 b <- brown_motion(250, 50)
 fport_test(b, test = 'single-lag', lag = 10)
 fport_test(b, test = 'multi-lag', lag = 10, alpha = 0.01)
 fport_test(b, test = 'single-lag', lag = 1, M = 250, low_disc = TRUE)
-fport_test(b, test = 'multi-lag', lag = 20, low_disc = TRUE)
 fport_test(b, test = 'spectral', kernel = 'Bartlett', bandwidth = 'static', alpha = 0.05)
 fport_test(b, test = 'spectral', alpha = 0.1, kernel = 'Parzen', bandwidth = 'adaptive')
-fport_test(b, test = 'spectral', kernel = 'Daniell', bandwidth = 2)
 fport_test(b, test = 'independence', components = 3, lag = 3)
 
 }

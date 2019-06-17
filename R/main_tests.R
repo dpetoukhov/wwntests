@@ -1,15 +1,15 @@
-#' Compute the Single-Lag Hypothesis Test, Testing Weak White Noise Assumption
+#' Single-Lag Hypothesis Test
 #'
-#' \code{single_lag_test} Computes the single-lag hypothesis test.
+#' \code{single_lag_test} Computes the single-lag hypothesis test at a single user-specified lag.
 #'
-#' @param f_data the functional data matrix with observed functions in the columns
-#' @param lag Positive integer value. The lag to use to compute the single lag test statistic
-#' @param alpha Positive numeric value. The significance level to be used in the hypothesis test.
-#' The default value is 0.05. Note, the significance value is only ever used to compute the 1-alpha quantile
-#' of the limiting distribution of the statistic.
+#' @param f_data The functional data matrix with observed functions in the columns
+#' @param lag Positive integer value. The lag to use to compute the single lag test statistic.
+#' @param alpha Numeric value between 0 and 1 specifying the significance level to be used in the specified
+#' hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+#' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param iid A Boolean value, FALSE by default. If given TRUE, the hypothesis test will use a strong-white
 #' noise assumption (instead of a weak-white noise assumption).
-#' @param M Positive integer value. Number of Monte-Carlo simulation for Welch-Satterthwaite approximation.
+#' @param M Positive integer value. Number of Monte-Carlo simulations for the Welch-Satterthwaite approximation.
 #' @param low_disc A Boolean value, FALSE by default. If given TRUE, uses low-discrepancy sampling in the
 #' Monte-Carlo method. Note, low-discrepancy sampling will yield deterministic results.
 #' Requires the 'fOptions' package.
@@ -31,8 +31,10 @@
 #' user-specified lag h. More specifically, it tests the null hypothesis that the lag-h autocovariance
 #' operator is equal to 0. This test is desgined for stationary functional time-series, and is valid under
 #' conditional heteroscedasticity conditions.
-#' @return A list containing the p-value, the quantile, and a boolean value indicating whether or not the
-#' hypothesis is rejected.
+#' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+#' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+#' containing a short description of the test, the p-value, and additional information about the test if
+#' suppress_print_output = FALSE.
 #'
 #' @references
 #' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
@@ -40,8 +42,8 @@
 #'
 #' @examples
 #' f <- far_1_S(150, 50, S = 0.75)
-#' test_results1 <- single_lag_test(f, lag = 1)
-#' test_results2 <- single_lag_test(f, lag = 2, M=100)
+#' single_lag_test(f, lag = 1)
+#' single_lag_test(f, lag = 2, M=100)
 #'
 #' @import stats
 #' @export
@@ -113,15 +115,15 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
 }
 
 
-#' Compute the Multi-Lag Hypothesis Test, Testing Weak White Noise Assumption
+#' Multi-Lag Hypothesis Test
 #'
-#' \code{multi_lag_test} Computes the multi-lag hypothesis test.
+#' \code{multi_lag_test} Computes the multi-lag hypothesis test over a range of user-specified lags.
 #'
 #' @param f_data the functional data matrix with observed functions in the columns
 #' @param lag Positive integer value. The lag to use to compute the single lag test statistic
-#' @param alpha Positive numeric value. The significance level to be used in the hypothesis test.
-#' The default value is 0.05. Note, the significance value is only ever used to compute the 1-alpha quantile
-#' of the limiting distribution of the statistic.
+#' @param alpha Numeric value between 0 and 1 specifying the significance level to be used in the specified
+#' hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+#' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param iid A Boolean value, FALSE by default. If given TRUE, the hypothesis test will use a strong-white
 #' noise assumption (instead of a weak-white noise assumption).
 #' @param M Positive integer value. Number of Monte-Carlo simulation for Welch-Satterthwaite approximation.
@@ -137,8 +139,10 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
 #' user-selected maximum lag K. More specifically, it tests the null hypothesis that the first K lag-h autocovariance
 #' operators (h going from 1 to K) is equal to 0. This test is desgined for stationary functional time-series, and
 #' is valid under conditional heteroscedasticity conditions.
-#' @return A list containing the p-value, the quantile, and a boolean value indicating whether or not the
-#' hypothesis is rejected.
+#' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+#' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+#' containing a short description of the test, the p-value, and additional information about the test if
+#' suppress_print_output = FALSE.
 #'
 #' @references
 #' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
@@ -146,8 +150,8 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
 #'
 #' @examples
 #' b <- brown_motion(150, 50)
-#' test_results1 <- single_lag_test(b, lag = 1)
-#' test_results2 <- single_lag_test(b, lag = 2, M=100)
+#' multi_lag_test(b, lag = 5)
+#' multi_lag_test(b, lag = 10, M = 50)
 #'
 #' @import stats
 #' @export
@@ -194,17 +198,21 @@ multi_lag_test <- function(f_data, lag = 20, M=NULL, low_disc=FALSE, iid=FALSE,
 }
 
 
-#' \code{spectral_test} Computes the p-value of the size alpha spectral density based white noise
-#' test.
+#' Spectral Density Test
 #'
-#' @param f_data the functional data matrix with observed functions in the columns
-#' @param kernel the kernel function to use. The currently supported kernels are 'Bartlett', 'Parzen',
-#' and 'Daniell'. The default kernel is 'Bartlett'.
-#' @param bandwidth specifies the bandwidth to use. Currently admitted arguments are positive
-#' integers, 'static' which computes the bandwith p via p = n^(1/(2q+1)) where n is the sample
-#' size and q is the kernel order, or 'adaptive' which uses a bandwith selection method that
-#' is based on the functional data.
-#' @param alpha = the significance level to be used for the test; 0.05 by default.
+#' \code{spectral_test} Computes the spectral hypothesis test under a user-specified kernel function and
+#' bandwidth; automatic bandwidth selection methods are provided.
+#'
+#' @param f_data The functional data matrix with observed functions in the columns
+#' @param kernel A String specifying the kernel function to use. The currently supported kernels are the
+#' 'Bartlett' and  'Parzen' kernels. The default kernel is 'Bartlett'.
+#' @param bandwidth A String or positive Integer value which specifies the bandwidth to use. Currently admitted
+#' string handles are 'static' which computes the bandwith p via p = n^(1/(2q+1)) where n is the sample size
+#' and q is the kernel order, or 'adaptive' which uses a bandwith selection method that is based on the
+#' functional data.
+#' @param alpha Numeric value between 0 and 1 specifying the significance level to be used for the test.
+#' The significance level is 0.05 by default. Note, the significance value is only ever used to compute the
+#' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param suppress_raw_output Boolean value, FALSE by default. If TRUE, the function will not return the list
 #' contining the p-value, quantile, and statistic.
 #' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
@@ -213,18 +221,20 @@ multi_lag_test <- function(f_data, lag = 20, M=NULL, low_disc=FALSE, iid=FALSE,
 #' the proximity of a functional time series to a white noise - the constant spectral density operator of an
 #' uncorrelated series. Unlike the "single-lag" and "multi-lag" tests, this test is not for general white noise
 #' series, and may not hold under functional conditionally heterscedastic assumptions.
-#' @return A list containing the p-value, the quantile, and a boolean value indicating whether or not the
-#' hypothesis is rejected.
+#' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+#' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+#' containing a short description of the test, the p-value, and additional information about the test if
+#' suppress_print_output = FALSE.
 #'
 #' @references
 #' Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
 #' spectral density operator. Econometrics and Statistics, submitted.
 #'
 #' @examples
-#' b = brown_motion(100, 50)
+#' b <- brown_motion(100, 50)
 #' spectral_test(b)
 #' spectral_test(b, kernel = 'Parzen', bandwidth = 'adaptive')
-#' spectral_test(b, kernel = 'Daniell', bandwidth = 2)
+#' spectral_test(b, kernel = 'Bartlett', bandwidth = 2)
 #'
 #' @export
 spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', alpha = 0.05,
@@ -261,14 +271,20 @@ spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', a
 }
 
 
-#' \code{independence_test} Performs a test for independence and identical distribution of functional
-#' observations. The test relies on a dimensional reduction via a projection of the data on the K
-#' most important functional pricnipal components.
+#' Independence Test
+#'
+#' \code{independence_test} Computes the independence test with a user-specified number of principal components
+#' and range of lags.
 #'
 #' @param f_data the functional data matrix with observed functions in the columns
-#' @param components the number of principal components to project the data on
-#' @param lag the maximum lag to include; this can be seen as the bandwidth.
-#' @param alpha the significance level to be used for the hypothesis test
+#' @param components A positive Integer specifying the number of principal components to project the data on;
+#' ranked in order of importance (importance is determined by the proportion of the variance that is explained
+#' by the individual principal component.)
+#' @param lag A positive Integer value, specifying the maximum lag to include - this can be seen as the bandwidth
+#' or lag-window.
+#' @param alpha Numeric value between 0 and 1 specifying the significance level to be used in the specified
+#' hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+#' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param suppress_raw_output Boolean value, FALSE by default. If TRUE, the function will not return the list
 #' contining the p-value, quantile, and statistic.
 #' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
@@ -278,7 +294,10 @@ spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', a
 #' It is based on the resulting lagged cross-variances. This test is not for general white noise series, and
 #' may not hold under functional conditionally heteroscedastic assumptions. Please consult the vignette for a
 #' deeper exposition, and consult the reference for a complete treatment.
-#' @return A list containing the statistic and p-value of the independence test.
+#' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+#' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+#' containing a short description of the test, the p-value, and additional information about the test if
+#' suppress_print_output = FALSE.
 #' @references
 #' Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
 #' Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.

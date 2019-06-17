@@ -111,21 +111,21 @@ Q_WS_hyp_test <- function(f_data, lag, alpha=0.05, iid=FALSE,
     statistic <- t_statistic_Q(f_data, lag=lag)
     quantile <- quantile(as.numeric(stats_distr), 1 - alpha)
     p_value <- sum(statistic > stats_distr) / length(stats_distr)
-    list(p_value = as.numeric(p_value), quantile = as.numeric(quantile),
-         statistic = as.numeric(statistic), block_size = block_size)
+    list(statistic = as.numeric(statistic), quantile = as.numeric(quantile),
+         p_value = as.numeric(p_value), block_size = block_size)
   } else if (iid == FALSE) {
     results <- Q_WS_quantile(f_data, lag, alpha=alpha, M=M, low_disc=low_disc)
     statistic <- results$statistic
     quantile <- results$quantile
     p_val <- results$p_val
     reject <- statistic > quantile
-    list(p_value = p_val, quantile = quantile, reject = reject)
+    list(statistic = statistic, quantile = quantile, p_value = p_val)
   } else {
     results <- Q_WS_quantile_iid(f_data, alpha=alpha)
     statistic <- results$statistic
     quantile <- results$quantile
     p_val <- results$p_val
     reject <- statistic > quantile
-    list(p_value = p_val, quantile = quantile, reject = reject)
+    list(statistic= statistic, quantile = quantile, p_value = p_val)
   }
 }

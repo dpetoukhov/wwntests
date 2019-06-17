@@ -2,7 +2,7 @@
 % Please edit documentation in R/main_tests.R
 \name{multi_lag_test}
 \alias{multi_lag_test}
-\title{Compute the Multi-Lag Hypothesis Test, Testing Weak White Noise Assumption}
+\title{Multi-Lag Hypothesis Test}
 \usage{
 multi_lag_test(f_data, lag = 20, M = NULL, low_disc = FALSE,
   iid = FALSE, alpha = 0.05, suppress_raw_output = FALSE,
@@ -22,9 +22,9 @@ Requires the 'fOptions' package.}
 \item{iid}{A Boolean value, FALSE by default. If given TRUE, the hypothesis test will use a strong-white
 noise assumption (instead of a weak-white noise assumption).}
 
-\item{alpha}{Positive numeric value. The significance level to be used in the hypothesis test.
-The default value is 0.05. Note, the significance value is only ever used to compute the 1-alpha quantile
-of the limiting distribution of the statistic.}
+\item{alpha}{Numeric value between 0 and 1 specifying the significance level to be used in the specified
+hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
 contining the p-value, quantile, and statistic.}
@@ -33,11 +33,13 @@ contining the p-value, quantile, and statistic.}
 output to the console.}
 }
 \value{
-A list containing the p-value, the quantile, and a boolean value indicating whether or not the
-hypothesis is rejected.
+If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+containing a short description of the test, the p-value, and additional information about the test if
+suppress_print_output = FALSE.
 }
 \description{
-\code{multi_lag_test} Computes the multi-lag hypothesis test.
+\code{multi_lag_test} Computes the multi-lag hypothesis test over a range of user-specified lags.
 }
 \details{
 The "multi-lag" portmanteau test is also based on the sample autocovariance function computed from the
@@ -48,8 +50,8 @@ is valid under conditional heteroscedasticity conditions.
 }
 \examples{
 b <- brown_motion(150, 50)
-test_results1 <- single_lag_test(b, lag = 1)
-test_results2 <- single_lag_test(b, lag = 2, M=100)
+multi_lag_test(b, lag = 5)
+multi_lag_test(b, lag = 10, M = 50)
 
 }
 \references{

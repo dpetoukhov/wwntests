@@ -13,7 +13,7 @@ imhof_test <- function(f_data, lag) {
   if (!requireNamespace('CompQuadForm')) {
     stop("Please install the 'CompQuadForm' package to perform the imhof test.")
   }
-  if ((lag < 1) | (!is.integer(lag))) {
+  if ((lag < 1) | (lag %% 1 != 0)) {
     stop("The 'lag' parameter must a positive integer.")
   }
   N = NCOL(f_data)
@@ -32,5 +32,5 @@ imhof_test <- function(f_data, lag) {
   SVD <- tensorA::svd.tensor(tensor_numeric, i=c("a", "b"))
   eigenvalues <- as.numeric(SVD$d / (J^2))
   pval_imhof <- CompQuadForm::imhof(t_statistic_val, lambda = eigenvalues)$Qq
-  list(SVD_d = SVD$d, p_value = pval_imhof)
+  list(statistic = t_statistic_val, p_value = pval_imhof)
 }

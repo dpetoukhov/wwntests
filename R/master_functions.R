@@ -1,13 +1,14 @@
 #' Compute Functional Hypothesis Tests
 #'
-#' \code{fport_test} Computes a variety of functional portmanteau hypothesis tests.
+#' \code{fport_test} Computes a variety of functional portmanteau hypothesis tests. All hypothesis tests in this
+#' package are accessible through this function.
 #'
 #' @param f_data The functional data matrix with observed functions in the columns.
-#' @param test A string specifying the hypothesis test. Currently available tests are referred to by their
+#' @param test A String specifying the hypothesis test. Currently available tests are referred to by their
 #' string handles: "single-lag", "multi-lag", "spectral", "independence", and "imhof". Please see the Details
 #' section of the documentation, or the vignette, for a short overview of the available tests. For a more
 #' complete treatment of these hypothesis tests, please consult the references.
-#' @param lag Positive integer value. Only used for the "single-lag", "multi-lag", "independence", and "imhof" tests.
+#' @param lag A positive integer value. Only used for the "single-lag", "multi-lag", "independence", and "imhof" tests.
 #' This parameter specifies the single lag, or maximum lag, to be used by the specified test.
 #' @param iid Only used for the "single-lag" and "multi-lag" tests. A Boolean value, FALSE by default. If given TRUE,
 #' the hypothesis test will use a strong-white noise assumption (instead of a weak-white noise assumption).
@@ -18,34 +19,34 @@
 #' If given TRUE, uses low-discrepancy sampling in the Monte-Carlo method. Note, low-discrepancy sampling will
 #' yield deterministic results. Requires the 'fOptions' package.
 #' @param kernel Only used for the "spectral" test. A String, 'Bartlett' by default. Specifies the kernel to be
-#' used in the "spectral" test. Currently supported kernels are the 'Bartlett', 'Parzen', and 'Daniell' kernels.
+#' used in the "spectral" test. Currently supported kernels are the 'Bartlett' and 'Parzen' kernels.
 #' @param bandwidth Only used for the "spectral" test. Either a String or a positive Integer value, 'adaptive' by
-#' default. Determines the bandwidth (or lag-window) to be used for the test. If given the string handle is
-#' 'adaptive', the bandwidth is computed via a bandwidth selection method which aims to minimize the integrated
-#' normed error of the spectral density operator. If the given string handle is 'static', the bandwidth is
-#' computed to be n^(1/(2q + 1)), where n is the sample size and q is the kernel order. If a positive integer
-#' is given, that will be the bandwidth that is used.
+#' default. Determines the bandwidth (or lag-window) to be used for the test. Given the string handle 'adaptive',
+#' the bandwidth is computed via a bandwidth selection method which aims to minimize the integrated normed
+#' error of the spectral density operator. If the given string handle is 'static', the bandwidth is computed
+#' to be n^(1/(2q + 1)), where n is the sample size and q is the kernel order. If a positive integer is
+#' given, that will be the bandwidth that is used.
 #' @param components Only used for the "independence" test. A positive Integer value. Determines the number of
-#' functional principal components to compute.
+#' functional principal components to use (ranked by their importance).
 #' @param bootstrap Only used for the "single-lag" test. A Boolean value, FALSE by default. If given TRUE, the
 #' hypothesis test is evaluated by approximating the limiting distribution of the test statistic via a block
 #' bootstrapping process.
-#' @param block_size Only used for the "single-lag" test and if 'bootstrap' = TRUE. A positive Integer value,
-#' with the default value being computed via the adaptive bandwith selection method in the "spectral" test.
+#' @param block_size Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer
+#' value, with the default value being computed via the adaptive bandwith selection method in the "spectral" test.
 #' Determines the block size (of each block in each bootstrap sample) if the test is being bootstrapped.
-#' @param straps Only used for the "single-lag" test and if 'bootstrap' = TRUE. A positive Integer with a
-#' default value of 300. Determines the number of bootstrap samples to take if the test is being bootstrapped.
-#' @param moving Only used for the "single-lag" test and if 'bootstrap' = TRUE. A Boolean value, FALSE by
-#' default If given TRUE, the performed block bootstrap will be moving rather than stationary.
-#' @param alpha Positive numeric value. The significance level to be used in the specified hypothesis test.
-#' The default value is 0.05. Note, the significance value is only ever used to compute the 1-alpha quantile
-#' of the limiting distribution of the specified test's test statistic.
+#' @param straps Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer with
+#' a default value of 300. Determines the number of bootstrap samples to take if the test is being bootstrapped.
+#' @param moving Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A Boolean value, FALSE
+#' by default If given TRUE, the performed block bootstrap will be moving rather than stationary.
+#' @param alpha Numeric value between 0 and 1 specifying the significance level to be used in the specified
+#' hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+#' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param complete_test A Boolean value, FALSE by default. If TRUE, the function requires no other paramters
-#' other than f_data, and will return a table with a signle column containing p_values and an array of tests
+#' other than f_data, and will return a table with a signle column containing p-values from an array of tests
 #' contained in the rows.
 #' @param suppress_raw_output A Boolean value, FALSE by default. If given TRUE, the function will not return a
 #' list containing the p-value, quantile and statistic, and instead only prints output to the console.
-#' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
+#' @param suppress_print_output A Boolean value, FALSE by default. If TRUE, the function will not print any
 #' output to the console.
 #' @details The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
 #' functional data. This test asseses the significance of lagged autocovariance operators at a single, user-specified
@@ -79,21 +80,22 @@
 #' functional conditionally heteroscedastic assumptions.
 #' The required parameters for this test are 'lag' and 'components'. The 'lag' parameter determines the maximum lag at
 #' which the test is evaluated. The 'components' parameter determines the number of the most important principal
-#' components to use (importance is determined by the proportion of the variance that is explained the by the
+#' components to use (importance is determined by the proportion of the variance that is explained by the
 #' individual principal component.)
 #'
-#' The "imhof" portmanteau test is a variant of the "single-lag" test. While the "single-lag" test computes the
+#' The "imhof" portmanteau test is an analogue of the "single-lag" test. While the "single-lag" test computes the
 #' limiting distribution of the test statistic via a Welch-Satterthwaite approximation, the "imhof" test directly
 #' computes the coefficents of the quadratic form in Normal variables which the test statistic converges too as
 #' the sample size goes to infinity. We warn the user that this test is extremely computationally expensive, and
 #' is only recommended for small datasets as a means of cross-verification against the single-lag test.
 #' The required parameter for this test is 'lag', which determines the lag at which the test is evaluated.
-#' The "imhof" test requires the "tensorA" and "CompQuadForm" packages.
-#' @return A list containing the test statistic, the 1-alpha quantile of the limiting distribution, and the
-#' p-value computed from the specified hypothesis test. Also prints output containing a short description of
-#' the test, the p-value, and additional information about the test. If 'complete-test' = TRUE, will return
-#' a 1-column table instead containing the p-values for a variety of tests, which are given short descriptions
-#' in the index of the table.
+#' The "imhof" test requires the "tensorA" and "CompQuadForm" packages. Note also that the imhof test does not
+#' return a statistic, and thus returns a list with only 2 elements if suppress_raw_output = FALSE.
+#' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+#' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+#' containing a short description of the test, the p-value, and additional information about the test if
+#' suppress_print_output = FALSE. If 'complete-test' = TRUE, will return a 1-column table instead containing
+#' the p-values for a variety of tests, which are given short descriptions in the index of the table.
 #'
 #' @references
 #' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
@@ -113,17 +115,15 @@
 #' fport_test(b, test = 'single-lag', lag = 10)
 #' fport_test(b, test = 'multi-lag', lag = 10, alpha = 0.01)
 #' fport_test(b, test = 'single-lag', lag = 1, M = 250, low_disc = TRUE)
-#' fport_test(b, test = 'multi-lag', lag = 20, low_disc = TRUE)
 #' fport_test(b, test = 'spectral', kernel = 'Bartlett', bandwidth = 'static', alpha = 0.05)
 #' fport_test(b, test = 'spectral', alpha = 0.1, kernel = 'Parzen', bandwidth = 'adaptive')
-#' fport_test(b, test = 'spectral', kernel = 'Daniell', bandwidth = 2)
 #' fport_test(b, test = 'independence', components = 3, lag = 3)
 #'
 #' @export
 #' @import stats
 fport_test <- function(f_data, test = 'multi-lag', lag=NULL, iid=FALSE, M=NULL,
                        low_disc=FALSE, kernel = "Bartlett", bandwidth = "adaptive",
-                       components = 3, bootstrap=FALSE, block_size = 5, moving=FALSE,
+                       components = 3, bootstrap=FALSE, block_size = "adaptive", moving=FALSE,
                        straps = 300, alpha=0.05, complete_test=FALSE,
                        suppress_raw_output = FALSE, suppress_print_output = FALSE) {
   tests = c('single-lag', 'multi-lag', 'spectral', 'independence', 'imhof')
@@ -156,9 +156,6 @@ fport_test <- function(f_data, test = 'multi-lag', lag=NULL, iid=FALSE, M=NULL,
     if (!all.equal(M, as.integer(M)) | M < 0) {
       stop("Invalid arguments, M must be a positive integer or NULL.")
     }
-  }
-  if (test == 'imhof') {
-    print('This test is very computationally expensive. It is not recommended for large datasets.')
   }
   iid_error = base::simpleError("When iid = true, this function does not use Monte Carlo methods,
 and thus also does not support low-discrepancy sequence sampling or parallelization. Please change the parameters.")
@@ -199,9 +196,9 @@ and thus also does not support low-discrepancy sequence sampling or parallelizat
                    suppress_raw_output = suppress_raw_output,
                    suppress_print_output = suppress_print_output)
   } else if (test == 'single-lag') {
-    single_lag_test(f_data, lag, alpha=0.05, iid=FALSE,
-                    M=NULL, low_disc=FALSE, bootstrap=FALSE,
-                    block_size=10, straps=300, moving = FALSE,
+    single_lag_test(f_data, lag, alpha=alpha, iid=iid,
+                    M=M, low_disc=low_disc, bootstrap=bootstrap,
+                    block_size=block_size, straps=straps, moving = moving,
                     suppress_raw_output = suppress_raw_output,
                     suppress_print_output = suppress_print_output)
   } else if (test == 'spectral') {
@@ -213,7 +210,25 @@ and thus also does not support low-discrepancy sequence sampling or parallelizat
                       suppress_raw_output = suppress_raw_output,
                       suppress_print_output = suppress_print_output)
   } else if (test == 'imhof') {
-    imhof_test(f_data, lag)
+    input <- readline("We warn the user that the imhof test is extremely computationally expensive. \n
+Press [enter] if you would like to continue.")
+    if (input != '') {
+      stop("User cancelled the test.")
+    }
+    results <- imhof_test(f_data, lag)
+    if (suppress_print_output == FALSE) {
+      title_print <- sprintf(" Imhof Test\n\n")
+      test_type <- 'the series is a weak white noise\n'
+      null_print <- sprintf("null hypothesis: %s", test_type)
+      p_val_print <- sprintf("p-value = %f\n", results$p_value)
+      samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
+      lag_print <- sprintf("lag = %d\n\n\n", lag)
+      cat(c(title_print, null_print, p_val_print, samp_print,
+            lag_print))
+    }
+    if (suppress_raw_output == FALSE) {
+      results
+    }
   }
 }
 
@@ -225,19 +240,19 @@ and thus also does not support low-discrepancy sequence sampling or parallelizat
 #' noise assumptions. It plots the coefficients as well as the bounds for all lags h = 1:K.
 #'
 #' @param f_data The functional data matrix with observed functions in the columns.
-#' @param K The maximum lag for which to compute the single-lag test (tests will be computed for lags
-#' h in 1:K).
-#' @param alpha Positive numeric Value. The significance level to be used in the specified hypothesis test.
-#' The default value is 0.05.
-#' @param M Positive Integer value. Determines the number of Monte-Carlo simulations employed in the
+#' @param K A positive Integer value. The maximum lag for which to compute the single-lag test (tests
+#' will be computed for lags h in 1:K).
+#' @param alpha A numeric value between 0 and 1 specifying the significance level to be used in the single-lag
+#' test. The default value is 0.05.
+#' @param M A positive Integer value. Determines the number of Monte-Carlo simulations employed in the
 #' Welch-Satterthwaite approximation of the limiting distribution of the test statistics, for each test.
 #' @param low_disc A Boolean value, FALSE by default. If given TRUE, uses low-discrepancy sampling in the
 #' Monte-Carlo method. Note, low-discrepancy sampling will yield deterministic results.
 #' Requires the 'fOptions' package.
-#' @details This function computes and plots autocorrelation coefficients at lag h, for h in 1:K. It also computes
-#' an estimated asymptotic 1 - alpha quantile of the single-lag test statistic, under the assumption that the series
-#' forms a weak white noise. Additionally, it computes a similar bound under the assumption the the series form a
-#' strong white noise. Please see the vignette or the references for a more complete treatment.
+#' @details This function computes and plots autocorrelation coefficients at lag h, for h in 1:K. It also
+#' computes an estimated asymptotic 1 - alpha confidence bound, under the assumption that the series
+#' forms a weak white noise. Additionally, it computes a similar bound under the assumption the the series
+#' form a strong white noise. Please see the vignette or the references for a more complete treatment.
 #' @return Plot of the estimated autocorrelation coefficients for lags h in 1:K with the weak
 #' white noise 1-alpha confidence bound for each lag, as well as the constant strong white noise 1-alpha
 #' confidence bound.

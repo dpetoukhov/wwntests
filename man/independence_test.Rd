@@ -2,9 +2,7 @@
 % Please edit documentation in R/main_tests.R
 \name{independence_test}
 \alias{independence_test}
-\title{\code{independence_test} Performs a test for independence and identical distribution of functional
-observations. The test relies on a dimensional reduction via a projection of the data on the K
-most important functional pricnipal components.}
+\title{Independence Test}
 \usage{
 independence_test(f_data, components, lag, alpha = 0.05,
   suppress_raw_output = FALSE, suppress_print_output = FALSE)
@@ -12,11 +10,16 @@ independence_test(f_data, components, lag, alpha = 0.05,
 \arguments{
 \item{f_data}{the functional data matrix with observed functions in the columns}
 
-\item{components}{the number of principal components to project the data on}
+\item{components}{A positive Integer specifying the number of principal components to project the data on;
+ranked in order of importance (importance is determined by the proportion of the variance that is explained
+by the individual principal component.)}
 
-\item{lag}{the maximum lag to include; this can be seen as the bandwidth.}
+\item{lag}{A positive Integer value, specifying the maximum lag to include - this can be seen as the bandwidth
+or lag-window.}
 
-\item{alpha}{the significance level to be used for the hypothesis test}
+\item{alpha}{Numeric value between 0 and 1 specifying the significance level to be used in the specified
+hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
 contining the p-value, quantile, and statistic.}
@@ -25,12 +28,14 @@ contining the p-value, quantile, and statistic.}
 output to the console.}
 }
 \value{
-A list containing the statistic and p-value of the independence test.
+If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+containing a short description of the test, the p-value, and additional information about the test if
+suppress_print_output = FALSE.
 }
 \description{
-\code{independence_test} Performs a test for independence and identical distribution of functional
-observations. The test relies on a dimensional reduction via a projection of the data on the K
-most important functional pricnipal components.
+\code{independence_test} Computes the independence test with a user-specified number of principal components
+and range of lags.
 }
 \details{
 The "independence" portmanteau test is a test of independence and identical distributuion based on a

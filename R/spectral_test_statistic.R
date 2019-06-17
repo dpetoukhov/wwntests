@@ -1,8 +1,8 @@
 # spectral_t_statistic computes the spectral density operator based test statistic of the functional
 #   data f_data.
-# Input: f_data = the functional data matrix with observed functions in columns
-#        kernel = the kernel function to use. The currently supported kernels are 'Bartlett', 'Parzen',
-#                 and 'Daniell'. The default kernel is 'Bartlett'.
+# Input: f_data = The functional data matrix with observed functions in columns
+#        kernel = The kernel function to use. The currently supported kernels are 'Bartlett' and 'Parzen'.
+#                 The default kernel is 'Bartlett'.
 #        bandwidth = specifies the bandwidth to use. Currently admitted arguments are positive
 #                    integers, 'static' which computes the bandwith p via p = n^(1/(2q+1)) where
 #                    n is the sample size and q is the kernel order, or 'adaptive' which uses a
@@ -18,9 +18,9 @@ spectral_t_statistic <- function(f_data, kernel = 'Bartlett', bandwidth = 'adapt
   } else if (kernel == 'Parzen') {
     kernel <- parzen_kernel
     kernel_order <- 2
-  } else if (kernel == 'Daniell') {
-    kernel <- daniell_kernel
-    kernel_order <- 2
+  #} else if (kernel == 'Daniell') {
+    #kernel <- daniell_kernel
+    #kernel_order <- 2
   } else {
     stop("This kernel is not supported. Please see the documentation for supported kernel functions.")
   }
@@ -56,8 +56,8 @@ spectral_t_statistic <- function(f_data, kernel = 'Bartlett', bandwidth = 'adapt
 # adaptive_bandwidth computes the "optimal" bandwidth using a bandwidth selection method based on the
 #   spectral density operator which adapts to the functional data.
 # Input: f_data = the functional data matrix with observed functions in columns
-#        kernel = the kernel function to use. The currently supported kernels are 'Bartlett', 'Parzen',
-#                 and 'Daniell'. The default kernel is 'Bartlett'.
+#        kernel = the kernel function to use. The currently supported kernels are 'Bartlett' and 'Parzen'.
+#                 The default kernel is 'Bartlett'.
 # Output: a scalar value of the "optimal" data-adapted bandwidth.
 adaptive_bandwidth <- function(f_data, kernel) {
   J <- NROW(f_data)
@@ -72,11 +72,11 @@ adaptive_bandwidth <- function(f_data, kernel) {
     order <- 2
     xi <- 6
     kern_int <- 151 / 280
-  } else if (kernel == 'Daniell') {
-    kernel <- daniell_kernel
-    order <- 2
-    xi <- (pi^2) / 6
-    kern_int <- 1
+  #} else if (kernel == 'Daniell') {
+    #kernel <- daniell_kernel
+    #order <- 2
+    #xi <- (pi^2) / 6
+    #kern_int <- 1
   } else {
     stop('Please see the documentation for supported kernels.')
   }

@@ -77,7 +77,7 @@ autocorrelation_coeff_plot(f_data = f, K = 20)
 ## The Spectral Density Test
 
 The single-lag test, and in particular, the multi-lag test, are computationally expensive. Another supported test, referred to by its string handle 'spectral', which is significantly faster. The drawback of this test, is thata it is not built for general white noise (e.g. functional conditionally heterscedastic) series. It is based on the spectral density operator $\mathscr{F}(\omega) = \frac{1}{2\pi} \sum_{j \in \mathbb{Z}} C(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $C(j)$ are the autocovariance operators, $C(j) = E[X_j \otimes X_0], j \in \mathbb{Z}$. These operators are esimated by $\hat{C}_n(j) = \frac{1}{n} \sum_{t = j+1}^n u_t \otimes u_{t-j}, 0 \le j < n$ and $\hat{\mathscr{F}}_n(\omega) = \frac{1}{2\pi} \sum_{|j|<n} k(\frac{j}{p_n})\hat{C}_n(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $k$ is a user-chosen kernel function and $p_n$ is the bandwidth parameter (or lag-window); it may either me a user-inputter positive integer, computed from the sample size via $p_n = n^{\frac{1}{2q+1}}$, or computed via a data-adaptive process (please see Kokoszka, Rice, Shang for a complete treatment of this process).
-Currently supported kernel functions are the Barlett, Parzen, and Daniell kernels:
+Currently supported kernel functions are the Barlett and Parzen kernels:
 $$
 \begin{align*}
 k_B(x) &= \begin{cases}
@@ -89,8 +89,7 @@ k_P(x) &= \begin{cases}
 1 - 6x^2 + 6|x|^3 & \text{ for } 0 \le |x| \le \frac{1}{2} \\
 2(1 - |x|)^3 & \text{ for } \frac{1}{2} \le |x| \le 1 \\
 0 & \text{ otherwise }
-\end{cases} & \text{(Parzen)} \\
-k_D(x) &= \frac{\sin(\pi x)}{\pi x}, x \in \mathbb{R} \setminus \{0\}, k_D(0) = 1 & \text{(Daniell)}
+\end{cases} & \text{(Parzen)}
 \end{align*}
 $$
 
@@ -111,7 +110,7 @@ We apply the spectral density test to our Brownian motion and FAR data with some
 fport_test(b, test='spectral', bandwidth = 'static', suppress_raw_output = TRUE)
 ```
 ```{r}
-fport_test(b, test='spectral', kernel = 'Daniell', bandwidth = 3, suppress_raw_output = TRUE)
+fport_test(b, test='spectral', kernel = 'Bartlett', bandwidth = 3, suppress_raw_output = TRUE)
 ```
 ```{r}
 fport_test(f, test='spectral', kernel = 'Parzen', bandwidth = 10, suppress_raw_output = TRUE)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/main_tests.R
 \name{single_lag_test}
 \alias{single_lag_test}
-\title{Compute the Single-Lag Hypothesis Test, Testing Weak White Noise Assumption}
+\title{Single-Lag Hypothesis Test}
 \usage{
 single_lag_test(f_data, lag = 1, alpha = 0.05, iid = FALSE,
   M = NULL, low_disc = FALSE, bootstrap = FALSE,
@@ -10,18 +10,18 @@ single_lag_test(f_data, lag = 1, alpha = 0.05, iid = FALSE,
   suppress_raw_output = FALSE, suppress_print_output = FALSE)
 }
 \arguments{
-\item{f_data}{the functional data matrix with observed functions in the columns}
+\item{f_data}{The functional data matrix with observed functions in the columns}
 
-\item{lag}{Positive integer value. The lag to use to compute the single lag test statistic}
+\item{lag}{Positive integer value. The lag to use to compute the single lag test statistic.}
 
-\item{alpha}{Positive numeric value. The significance level to be used in the hypothesis test.
-The default value is 0.05. Note, the significance value is only ever used to compute the 1-alpha quantile
-of the limiting distribution of the statistic.}
+\item{alpha}{Numeric value between 0 and 1 specifying the significance level to be used in the specified
+hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
+1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{iid}{A Boolean value, FALSE by default. If given TRUE, the hypothesis test will use a strong-white
 noise assumption (instead of a weak-white noise assumption).}
 
-\item{M}{Positive integer value. Number of Monte-Carlo simulation for Welch-Satterthwaite approximation.}
+\item{M}{Positive integer value. Number of Monte-Carlo simulations for the Welch-Satterthwaite approximation.}
 
 \item{low_disc}{A Boolean value, FALSE by default. If given TRUE, uses low-discrepancy sampling in the
 Monte-Carlo method. Note, low-discrepancy sampling will yield deterministic results.
@@ -47,11 +47,13 @@ contining the p-value, quantile, and statistic.}
 output to the console.}
 }
 \value{
-A list containing the p-value, the quantile, and a boolean value indicating whether or not the
-hypothesis is rejected.
+If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
+limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
+containing a short description of the test, the p-value, and additional information about the test if
+suppress_print_output = FALSE.
 }
 \description{
-\code{single_lag_test} Computes the single-lag hypothesis test.
+\code{single_lag_test} Computes the single-lag hypothesis test at a single user-specified lag.
 }
 \details{
 The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
@@ -62,8 +64,8 @@ conditional heteroscedasticity conditions.
 }
 \examples{
 f <- far_1_S(150, 50, S = 0.75)
-test_results1 <- single_lag_test(f, lag = 1)
-test_results2 <- single_lag_test(f, lag = 2, M=100)
+single_lag_test(f, lag = 1)
+single_lag_test(f, lag = 2, M=100)
 
 }
 \references{

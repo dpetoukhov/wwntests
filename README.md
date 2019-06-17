@@ -3,8 +3,12 @@
 
 # wwntests
 
-The goal of wwntests is to provide an array of functional hypothesis
-tests tests and related visualizations.
+The goal of the wwntests package is to provide an array of functional
+hypothesis tests tests and related visualizations. Currently supported
+hypothesis tests include weak and strong white noise tests, which are
+built for general white noise and thus hold under conditional
+heterscedasticity assumptions, as well as tests of independence and
+identical distribution.
 
 ## Installation
 

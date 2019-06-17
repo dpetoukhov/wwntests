@@ -82,11 +82,17 @@ test_that("fport_test Producing Valid Output for All Valid Combinations of Param
   expect_success(expect_length(res, 3))
   expect_success(expect_equal(sum(is.na(res)), 0))
 
-  expect_success(expect_is(res <- fport_test(f1, test = 'single-lag', bootstrap = TRUE, lag = 5, straps = 100, block_size = 10), "list"))
+  expect_success(expect_is(res <- fport_test(f1, test = 'single-lag', bootstrap = TRUE, lag = 5, straps = 100, block_size = 10, moving = TRUE), "list"))
   expect_success(expect_length(res, 3))
   expect_success(expect_equal(sum(is.na(res)), 0))
 
+  expect_success(expect_is(res <- fport_test(f1, test = 'single-lag', bootstrap = TRUE, lag = 3, straps = 100, block_size = 'adaptive'), "list"))
+  expect_success(expect_length(res, 3))
+  expect_success(expect_equal(sum(is.na(res)), 0))
 
+  expect_success(expect_is(res <- fport_test(f1, test = 'single-lag', bootstrap = TRUE, lag = 1, straps = 100, block_size = 'adaptive', moving = TRUE), "list"))
+  expect_success(expect_length(res, 3))
+  expect_success(expect_equal(sum(is.na(res)), 0))
 
 
   # Testing multi-lag test
@@ -148,18 +154,6 @@ test_that("fport_test Producing Valid Output for All Valid Combinations of Param
   expect_success(expect_length(res, 3))
   expect_success(expect_equal(sum(is.na(res)), 0))
 
-  expect_success(expect_is(res <- fport_test(b1, test = 'spectral', kernel = 'Daniell', bandwidth = 'static'), "list"))
-  expect_success(expect_length(res, 3))
-  expect_success(expect_equal(sum(is.na(res)), 0))
-
-  expect_success(expect_is(res <- fport_test(b1, test = 'spectral', kernel = 'Daniell', bandwidth = 10), "list"))
-  expect_success(expect_length(res, 3))
-  expect_success(expect_equal(sum(is.na(res)), 0))
-
-  expect_success(expect_is(res <- fport_test(b1, test = 'spectral', kernel = 'Daniell', bandwidth = 'adaptive'), "list"))
-  expect_success(expect_length(res, 3))
-  expect_success(expect_equal(sum(is.na(res)), 0))
-
   expect_success(expect_is(res <- fport_test(b1, test = 'spectral', kernel = 'Parzen', bandwidth = 'adaptive'), "list"))
   expect_success(expect_length(res, 3))
   expect_success(expect_equal(sum(is.na(res)), 0))
@@ -181,18 +175,6 @@ test_that("fport_test Producing Valid Output for All Valid Combinations of Param
   expect_success(expect_equal(sum(is.na(res)), 0))
 
   expect_success(expect_is(res <- fport_test(f1, test = 'spectral', kernel = 'Parzen', bandwidth = 5), "list"))
-  expect_success(expect_length(res, 3))
-  expect_success(expect_equal(sum(is.na(res)), 0))
-
-  expect_success(expect_is(res <- fport_test(f1, test = 'spectral', kernel = 'Daniell', bandwidth = 'static'), "list"))
-  expect_success(expect_length(res, 3))
-  expect_success(expect_equal(sum(is.na(res)), 0))
-
-  expect_success(expect_is(res <- fport_test(f1, test = 'spectral', kernel = 'Daniell', bandwidth = 10), "list"))
-  expect_success(expect_length(res, 3))
-  expect_success(expect_equal(sum(is.na(res)), 0))
-
-  expect_success(expect_is(res <- fport_test(f1, test = 'spectral', kernel = 'Daniell', bandwidth = 'adaptive'), "list"))
   expect_success(expect_length(res, 3))
   expect_success(expect_equal(sum(is.na(res)), 0))
 
