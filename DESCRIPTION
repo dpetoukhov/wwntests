@@ -10,6 +10,7 @@ Description: Provides an array of hypothesis tests for functional data and relat
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.4.0)
 Imports: 
     sde,
     stats,
@@ -26,3 +27,5 @@ Suggests:
     tensorA
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
+URL: https://github.com/jimthemadmanlahey/wwntests
+BugReports: https://github.com/jimthemadmanlahey/wwntests/issues
