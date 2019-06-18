@@ -27,5 +27,4 @@ Suggests:
     tensorA
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-URL: https://github.com/jimthemadmanlahey/wwntests
 BugReports: https://github.com/jimthemadmanlahey/wwntests/issues

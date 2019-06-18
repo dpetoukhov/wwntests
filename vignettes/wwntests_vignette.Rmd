@@ -31,7 +31,7 @@ Note that 'T' denotes the number of samples (Brownian motions) and 'J' denotes t
 
 We denote a discretely observed functional time series of length $T$ by $\{X_i(u) : 1 \le i \le T, u \in (0, 1]\} = (X_i)$ (the parameter $i$ indexes the samples). Each $X_i$ is seen as an element of the Hilbert space of real-valued square integrable functions on the interval $(0,1]$.
 
-## Single- and Multi-Lag Tests
+## Single- and Multi-Lag Tests [1]
 
 The autocovariance function for a given lag h is given by $\gamma_h(t,s) = E[(X_0(t) - \mu_X(t))(X_h(s) - \mu_X(s))$. The single-lag test tests the hypothesis $\mathscr{H}_{0,h} : \gamma_h(t,s) = 0$. Thus, this test is useful to identify correlation at a specified lag.
 
@@ -40,8 +40,7 @@ On the other hand, the multi-lag test is able to identify correlation over a ran
 The tests statistics for $\mathscr{H}_{0, h}$ and $\mathscr{H}_{0,K}$ are
 $$ Q_{T, h} = T || \gamma_h ||^2 \text{  and  } V_{T, K} = T \sum_{h = 1}^K ||\gamma_h||^2 $$
 For a complete and rigorous treatment of this process, and the theory these two tests, please refer
-to the paper 'Inference for the autocovariance of a functional time series under conditional heteroscedasticity' by
-Piotr Kokoszka, Gregory Rice, and Han Lin Shang.
+to Kokoszka, Rice, Shang [1].
 
 ### Applying the Single-Lag and Multi-Lag Tests to Data
 We try the single-lag tests with a lag of 1, and the multi-lag test with a maximum lag of 10 (note, the default significance level is $\alpha = 0.05$) on our functional Brownian motion and FAR data using the *fport_test* function and passing the string handles 'single-lag' and 'multi-lag' to the *test* parameter. For the single-lag test, the *lag* parameter determines the lag of the of the autocovariance function, and for the multi-lag test, it determines the maximum lag to include in $V_{T,K}$ (that is, lag = $K$).
@@ -74,9 +73,9 @@ autocorrelation_coeff_plot(f_data = f, K = 20)
 ```
 
 
-## The Spectral Density Test
+## The Spectral Density Test [2]
 
-The single-lag test, and in particular, the multi-lag test, are computationally expensive. Another supported test, referred to by its string handle 'spectral', which is significantly faster. The drawback of this test, is that it is not built for general white noise (e.g. functional conditionally heteroscedastic) series. It is based on the spectral density operator $\mathscr{F}(\omega) = \frac{1}{2\pi} \sum_{j \in \mathbb{Z}} C(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $C(j)$ are the autocovariance operators, $C(j) = E[X_j \otimes X_0], j \in \mathbb{Z}$. These operators are estimated by $\hat{C}_n(j) = \frac{1}{n} \sum_{t = j+1}^n u_t \otimes u_{t-j}, 0 \le j < n$ and $\hat{\mathscr{F}}_n(\omega) = \frac{1}{2\pi} \sum_{|j|<n} k(\frac{j}{p_n})\hat{C}_n(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $k$ is a user-chosen kernel function and $p_n$ is the bandwidth parameter (or lag-window); it may either be a user-inputted positive integer, computed from the sample size via $p_n = n^{\frac{1}{2q+1}}$, or computed via a data-adaptive process (please see Kokoszka, Rice, Shang for a complete treatment of this process).
+The single-lag test, and in particular, the multi-lag test, are computationally expensive. Another supported test, referred to by its string handle 'spectral', which is significantly faster. The drawback of this test, is that it is not built for general white noise (e.g. functional conditionally heteroscedastic) series. It is based on the spectral density operator $\mathscr{F}(\omega) = \frac{1}{2\pi} \sum_{j \in \mathbb{Z}} C(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $C(j)$ are the autocovariance operators, $C(j) = E[X_j \otimes X_0], j \in \mathbb{Z}$. These operators are estimated by $\hat{C}_n(j) = \frac{1}{n} \sum_{t = j+1}^n u_t \otimes u_{t-j}, 0 \le j < n$ and $\hat{\mathscr{F}}_n(\omega) = \frac{1}{2\pi} \sum_{|j|<n} k(\frac{j}{p_n})\hat{C}_n(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $k$ is a user-chosen kernel function and $p_n$ is the bandwidth parameter (or lag-window); it may either be a user-inputted positive integer, computed from the sample size via $p_n = n^{\frac{1}{2q+1}}$, or computed via a data-adaptive process (see Characiejus, Rice [2]).
 Currently supported kernel functions are the Bartlett and Parzen kernels:
 $$
 \begin{align*}
@@ -120,7 +119,7 @@ fport_test(f, test='spectral', bandwidth = 'adaptive', alpha = 0.01, suppress_ra
 ```
 
 
-## Independence Test
+## Independence Test [3]
 
 Performs a test for independence and identical distribution of functional observations. The test relies on a dimensional reduction via a projection of the data on the K most important functional principal components. The empirical autocovariance operator is given by
 $$ C_N(x) = \frac{1}{N} \sum_{n=1}^N \langle X_n x \rangle X_n, x \in L^2[0,1) $$
@@ -141,6 +140,7 @@ $$
 Q_n = N \sum_{h = 1}^H \sum_{i,j = 1}^p r_{f,h}(i,j) r_{b,h}(i,j)
 $$
 , which, under suitable conditions, converges to a $\chi^2_{p^2 H}$ distribution under the null hypothesis.
+See Gabrys, Kokoszka [3].
 
 ### Applying the Independence Test to Data
 
