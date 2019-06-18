@@ -15,15 +15,9 @@ identical distribution.
 Using the *devtools* package:
 
 ``` r
+install.packages("devtools")
 library(devtools)
-#> Warning: package 'usethis' was built under R version 3.4.4
-devtools::load_all()
-#> Loading wwntests
-#> 
-#> Attaching package: 'testthat'
-#> The following objects are masked from 'package:devtools':
-#> 
-#>     setup, test_file
+install_github("jimthemadmanlahey/wwntests")
 ```
 
 ## CRAN

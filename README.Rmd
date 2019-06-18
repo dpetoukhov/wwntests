@@ -19,9 +19,14 @@ The goal of the  wwntests package is to provide an array of functional hypothesi
 ## Installation
 
 Using the *devtools* package:
-```{r}
+```{r, include = FALSE}
 library(devtools)
 devtools::load_all()
+```
+```{r, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+install_github("jimthemadmanlahey/wwntests")
 ```
 
 ## CRAN

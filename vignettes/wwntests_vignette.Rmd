@@ -21,8 +21,7 @@ testing assumptions of weak/strong white noise, conditional heteroscedasticity, 
 
 We draw up some simple expository examples with a sample of Brownian motion curves and a sample of FAR(1,0.75)-IID curves (which are conditionally heteroscedastic).
 ```{r}
-#library(wwntests)
-devtools::load_all()
+library(wwntests)
 set.seed(1234)
 b <- brown_motion(N = 200, J = 100)
 f <- far_1_S(N = 200, J = 100, S = 0.75)
