@@ -13,8 +13,8 @@ block_bootsrap(f_data, b, B = 300, moving = FALSE)
 
 \item{B}{the number of bootstraps samples}
 
-\item{moving}{boolean value specyifing wheter the block bootstrap should be moving or not. A moving black
-bootstrap samples individual functional obervations and adds on the consequent block, rather than sampling
+\item{moving}{boolean value specifying whether the block bootstrap should be moving or not. A moving black
+bootstrap samples individual functional observations and adds on the consequent block, rather than sampling
 blocks of the data.}
 }
 \value{

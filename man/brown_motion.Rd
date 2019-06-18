@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_simulations.R
 \name{brown_motion}
 \alias{brown_motion}
-\title{\code{brown_motion} Creates at J x N matrix, containing N independent brownian motion sample paths in
+\title{\code{brown_motion} Creates at J x N matrix, containing N independent Brownian motion sample paths in
 each of the columns.}
 \usage{
 brown_motion(N, J)
@@ -16,7 +16,7 @@ brown_motion(N, J)
 A J x N matrix containing Brownian motion functional data in the columns.
 }
 \description{
-\code{brown_motion} Creates at J x N matrix, containing N independent brownian motion sample paths in
+\code{brown_motion} Creates at J x N matrix, containing N independent Brownian motion sample paths in
 each of the columns.
 }
 \examples{

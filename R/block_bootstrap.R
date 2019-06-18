@@ -3,8 +3,8 @@
 #' @param f_data the functional data matrix with observed functions in the columns
 #' @param b the block size (of each block in each bootstrap sample)
 #' @param B the number of bootstraps samples
-#' @param moving boolean value specyifing wheter the block bootstrap should be moving or not. A moving black
-#' bootstrap samples individual functional obervations and adds on the consequent block, rather than sampling
+#' @param moving boolean value specifying whether the block bootstrap should be moving or not. A moving black
+#' bootstrap samples individual functional observations and adds on the consequent block, rather than sampling
 #' blocks of the data.
 #' @return Returns a list of B elements, each element being a block bootstrap sample in the same format
 #' as the original functional data f_data.

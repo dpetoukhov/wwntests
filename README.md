@@ -7,7 +7,7 @@ The goal of the wwntests package is to provide an array of functional
 hypothesis tests tests and related visualizations. Currently supported
 hypothesis tests include weak and strong white noise tests, which are
 built for general white noise and thus hold under conditional
-heterscedasticity assumptions, as well as tests of independence and
+heteroscedasticity assumptions, as well as tests of independence and
 identical distribution.
 
 ## Installation
@@ -44,7 +44,7 @@ with IID errors) curves, both of which are available in *wwntests* via
 the *brown\_motion* and *far\_1\_S* functions. For both functions, *N*
 determines the number of samples and *J* determines the number of times
 each individual curve is sampled. The FAR(1,S) process is not a weak
-white noise (nor a strong white nouse) when S \> 0.
+white noise (nor a strong white noise) when S \> 0.
 
 ``` r
 set.seed(1997)
@@ -57,10 +57,10 @@ noise. The ‘single-lag’ and ‘multi-lag’ tests test this null hypothesis.
 For the sake of brevity, we’ll look just at the ‘single-lag’ test,
 please refer to the vignette for a more in depth look into both tests.
 
-Note, all tests can be accessed throgh the *fport\_test* by passing
+Note, all tests can be accessed through the *fport\_test* by passing
 their string handles (see documentation) to the argument *test*. If you
 are interested in a particular test, stand-alone functions are also
-avaiable for each test (see documentation).
+available for each test (see documentation).
 
 To be more specific, the ‘single-lag’ test at lag h tests the null
 hypothesis that the lag-h autocovariance function of the data is equal
@@ -85,11 +85,11 @@ fport_test(f_data = f, test = 'single-lag', lag = 1, suppress_raw_output = TRUE)
 #>  lag = 1
 ```
 
-Our p-values are as expected, given that a Brownian moton is indeed a
+Our p-values are as expected, given that a Brownian motion is indeed a
 weak white noise while the FAR data is not.
 
 Now suppose we want to test whether or not the functional data is
-independend and identically distributed. The ‘spectral’ and
+independent and identically distributed. The ‘spectral’ and
 ‘independence’ tests test this as a null hypothesis. For brevity, we
 will give an example using the ‘spectral’ test, which is based on the
 spectral density operator of the functional data, and essentially
@@ -125,7 +125,7 @@ test both provide the advantage that they are very quick, much less
 computationally burdensome than the ‘single-lag’ and (especially) the
 ‘multi-lag’ test. However, the ‘spectral’ and ‘independence’ test have
 the drawback that they are not designed for general white noise and may
-not hold under functional conditionally heterscedastic assumptions. To
+not hold under functional conditionally heteroscedastic assumptions. To
 see this in action, we will consider an fGARCH(1,1) (Functional
 Generalized Autoregressive Conditional Heteroscedasticity) process. This
 process is a weak-white noise, but not a strong white noise, and as a

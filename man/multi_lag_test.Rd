@@ -27,7 +27,7 @@ hypothesis test. The default value is 0.05. Note, the significance value is only
 1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
-contining the p-value, quantile, and statistic.}
+containing the p-value, quantile, and statistic.}
 
 \item{suppress_print_output}{Boolean value, FALSE by default. If TRUE, the function will not print any
 output to the console.}
@@ -43,9 +43,9 @@ suppress_print_output = FALSE.
 }
 \details{
 The "multi-lag" portmanteau test is also based on the sample autocovariance function computed from the
-functional data. This test asseses the cumulative significance of lagged autocovariance operators, up to a
+functional data. This test assesses the cumulative significance of lagged autocovariance operators, up to a
 user-selected maximum lag K. More specifically, it tests the null hypothesis that the first K lag-h autocovariance
-operators (h going from 1 to K) is equal to 0. This test is desgined for stationary functional time-series, and
+operators (h going from 1 to K) is equal to 0. This test is designed for stationary functional time-series, and
 is valid under conditional heteroscedasticity conditions.
 }
 \examples{
@@ -55,6 +55,6 @@ multi_lag_test(b, lag = 10, M = 50)
 
 }
 \references{
-Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 }

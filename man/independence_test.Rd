@@ -22,7 +22,7 @@ hypothesis test. The default value is 0.05. Note, the significance value is only
 1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
-contining the p-value, quantile, and statistic.}
+containing the p-value, quantile, and statistic.}
 
 \item{suppress_print_output}{Boolean value, FALSE by default. If TRUE, the function will not print any
 output to the console.}
@@ -38,7 +38,7 @@ suppress_print_output = FALSE.
 and range of lags.
 }
 \details{
-The "independence" portmanteau test is a test of independence and identical distributuion based on a
+The "independence" portmanteau test is a test of independence and identical distribution based on a
 dimensionality reduction by projecting the data onto the most important functional principal components.
 It is based on the resulting lagged cross-variances. This test is not for general white noise series, and
 may not hold under functional conditionally heteroscedastic assumptions. Please consult the vignette for a
@@ -50,6 +50,6 @@ independence_test(b, components = 3, lag = 5)
 
 }
 \references{
-Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
+[1] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
 Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.
 }

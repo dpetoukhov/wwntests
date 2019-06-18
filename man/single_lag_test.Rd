@@ -27,11 +27,11 @@ noise assumption (instead of a weak-white noise assumption).}
 Monte-Carlo method. Note, low-discrepancy sampling will yield deterministic results.
 Requires the 'fOptions' package.}
 
-\item{bootstrap}{A Boolean value, FALSE by deafult. If given TRUE, the hypothesis test is done by
+\item{bootstrap}{A Boolean value, FALSE by default If given TRUE, the hypothesis test is done by
 approximating the limiting distribution of the test statistic via a block bootstrap process.}
 
 \item{block_size}{A positive Integer value, with the default value being computed via the adaptive
-bandwith selection method in the "spectral" test. Determines the block size (of each block in each
+bandwidth selection method in the "spectral" test. Determines the block size (of each block in each
 bootstrap sample) if the test is being bootstrapped.}
 
 \item{straps}{A positive Integer, with a default value of 300. Determines the number of bootstrap samples
@@ -41,7 +41,7 @@ to take if the test is being bootstrapped. Only used if 'bootstrap' == TRUE.}
 rather than stationary.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
-contining the p-value, quantile, and statistic.}
+containing the p-value, quantile, and statistic.}
 
 \item{suppress_print_output}{Boolean value, FALSE by default. If TRUE, the function will not print any
 output to the console.}
@@ -57,9 +57,9 @@ suppress_print_output = FALSE.
 }
 \details{
 The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
-functional data. This test asseses the significance of lagged autocovariance operators at a single,
+functional data. This test assesses the significance of lagged autocovariance operators at a single,
 user-specified lag h. More specifically, it tests the null hypothesis that the lag-h autocovariance
-operator is equal to 0. This test is desgined for stationary functional time-series, and is valid under
+operator is equal to 0. This test is designed for stationary functional time-series, and is valid under
 conditional heteroscedasticity conditions.
 }
 \examples{
@@ -69,6 +69,6 @@ single_lag_test(f, lag = 2, M=100)
 
 }
 \references{
-Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 }

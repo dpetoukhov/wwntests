@@ -1,4 +1,4 @@
-#' \code{brown_motion} Creates at J x N matrix, containing N independent brownian motion sample paths in
+#' \code{brown_motion} Creates at J x N matrix, containing N independent Brownian motion sample paths in
 #' each of the columns.
 #'
 #' @param N the number of independent Brownian motion sample paths to compute.
@@ -70,10 +70,10 @@ fgarch_1_1 <- function(N, J, delta=0.01, burn_in=50) {
 #' \code{far_1_S} Simulates an FAR(1,S)-fGARCH(1,1) process with N independent observations, each
 #'  observed discretely at J points on the interval [0,1].
 #'
-#' @param N the number of FGARCH(1,1) curves to sample.
+#' @param N the number of fGARCH(1,1) curves to sample.
 #' @param J the number of points at which each curve is sampled (the resolution of the data).
 #' @param S the autoregressive operator of the model, between 0 and 1, indicating the level of
-#' conditional heterskedasticity.
+#' conditional heteroscedasticity.
 #' @param type the assumed model of the error term. The default argument is 'IID', under which
 #' the errors are assumed to be independent and identically distributed. The alternative argument
 #' is 'fGARCH', which will assume that the errors follow an fGARCH(1,1) process.

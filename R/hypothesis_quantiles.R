@@ -88,7 +88,7 @@ Q_WS_quantile_iid <- function(f_data, alpha=0.05) {
 #' @param low_disc Boolean value indicating whether or not to use low-discrepancy sampling in the Monte
 #' Carlo method. Note, low-discrepancy sampling will yield deterministic results.
 #' @param bootstrap boolean value, if given TRUE, the hypothesis test is done by approximating the
-#' limiting distribution of the test statistic via a block bootstrap algorithm. FALSE by deafult.
+#' limiting distribution of the test statistic via a block bootstrap algorithm. FALSE by default
 #' @param block_size the block size to be used in the block bootstrap method (in each bootstrap sample).
 #' 10 by default.
 #' @param straps the number of bootstrap samples to take; 300 by default

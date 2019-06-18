@@ -13,23 +13,23 @@
 #' @param low_disc A Boolean value, FALSE by default. If given TRUE, uses low-discrepancy sampling in the
 #' Monte-Carlo method. Note, low-discrepancy sampling will yield deterministic results.
 #' Requires the 'fOptions' package.
-#' @param bootstrap A Boolean value, FALSE by deafult. If given TRUE, the hypothesis test is done by
+#' @param bootstrap A Boolean value, FALSE by default If given TRUE, the hypothesis test is done by
 #' approximating the limiting distribution of the test statistic via a block bootstrap process.
 #' @param block_size A positive Integer value, with the default value being computed via the adaptive
-#' bandwith selection method in the "spectral" test. Determines the block size (of each block in each
+#' bandwidth selection method in the "spectral" test. Determines the block size (of each block in each
 #' bootstrap sample) if the test is being bootstrapped.
 #' @param straps A positive Integer, with a default value of 300. Determines the number of bootstrap samples
 #' to take if the test is being bootstrapped. Only used if 'bootstrap' == TRUE.
 #' @param moving A Boolean value, FALSE by default If given TRUE, the performed block bootstrap will be moving
 #' rather than stationary.
 #' @param suppress_raw_output Boolean value, FALSE by default. If TRUE, the function will not return the list
-#' contining the p-value, quantile, and statistic.
+#' containing the p-value, quantile, and statistic.
 #' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
 #' output to the console.
 #' @details The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
-#' functional data. This test asseses the significance of lagged autocovariance operators at a single,
+#' functional data. This test assesses the significance of lagged autocovariance operators at a single,
 #' user-specified lag h. More specifically, it tests the null hypothesis that the lag-h autocovariance
-#' operator is equal to 0. This test is desgined for stationary functional time-series, and is valid under
+#' operator is equal to 0. This test is designed for stationary functional time-series, and is valid under
 #' conditional heteroscedasticity conditions.
 #' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
 #' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
@@ -37,7 +37,7 @@
 #' suppress_print_output = FALSE.
 #'
 #' @references
-#' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+#' [1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 #' under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 #'
 #' @examples
@@ -131,13 +131,13 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
 #' Monte-Carlo method. Note, low-discrepancy sampling will yield deterministic results.
 #' Requires the 'fOptions' package.
 #' @param suppress_raw_output Boolean value, FALSE by default. If TRUE, the function will not return the list
-#' contining the p-value, quantile, and statistic.
+#' containing the p-value, quantile, and statistic.
 #' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
 #' output to the console.
 #' @details The "multi-lag" portmanteau test is also based on the sample autocovariance function computed from the
-#' functional data. This test asseses the cumulative significance of lagged autocovariance operators, up to a
+#' functional data. This test assesses the cumulative significance of lagged autocovariance operators, up to a
 #' user-selected maximum lag K. More specifically, it tests the null hypothesis that the first K lag-h autocovariance
-#' operators (h going from 1 to K) is equal to 0. This test is desgined for stationary functional time-series, and
+#' operators (h going from 1 to K) is equal to 0. This test is designed for stationary functional time-series, and
 #' is valid under conditional heteroscedasticity conditions.
 #' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
 #' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
@@ -145,7 +145,7 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
 #' suppress_print_output = FALSE.
 #'
 #' @references
-#' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+#' [1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 #' under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 #'
 #' @examples
@@ -207,28 +207,31 @@ multi_lag_test <- function(f_data, lag = 20, M=NULL, low_disc=FALSE, iid=FALSE,
 #' @param kernel A String specifying the kernel function to use. The currently supported kernels are the
 #' 'Bartlett' and  'Parzen' kernels. The default kernel is 'Bartlett'.
 #' @param bandwidth A String or positive Integer value which specifies the bandwidth to use. Currently admitted
-#' string handles are 'static' which computes the bandwith p via p = n^(1/(2q+1)) where n is the sample size
-#' and q is the kernel order, or 'adaptive' which uses a bandwith selection method that is based on the
+#' string handles are 'static' which computes the bandwidth p via p = n^(1/(2q+1)) where n is the sample size
+#' and q is the kernel order, or 'adaptive' which uses a bandwidth selection method that is based on the
 #' functional data.
 #' @param alpha Numeric value between 0 and 1 specifying the significance level to be used for the test.
 #' The significance level is 0.05 by default. Note, the significance value is only ever used to compute the
 #' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param suppress_raw_output Boolean value, FALSE by default. If TRUE, the function will not return the list
-#' contining the p-value, quantile, and statistic.
+#' containing the p-value, quantile, and statistic.
 #' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
 #' output to the console.
 #' @description The "spectral" portmanteau test is based on the spectral density operator. It essentially measures
 #' the proximity of a functional time series to a white noise - the constant spectral density operator of an
 #' uncorrelated series. Unlike the "single-lag" and "multi-lag" tests, this test is not for general white noise
-#' series, and may not hold under functional conditionally heterscedastic assumptions.
+#' series, and may not hold under functional conditionally heteroscedastic assumptions.
 #' @return If suppress_raw_output = FALSE, a list containing the test statistic, the 1-alpha quantile of the
 #' limiting distribution, and the p-value computed from the specified hypothesis test. Also prints output
 #' containing a short description of the test, the p-value, and additional information about the test if
 #' suppress_print_output = FALSE.
 #'
 #' @references
-#' Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
+#' [1] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
 #' spectral density operator. Econometrics and Statistics, submitted.
+#'
+#' [2] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications.
+#' Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130.
 #'
 #' @examples
 #' b <- brown_motion(100, 50)
@@ -286,10 +289,10 @@ spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', a
 #' hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
 #' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
 #' @param suppress_raw_output Boolean value, FALSE by default. If TRUE, the function will not return the list
-#' contining the p-value, quantile, and statistic.
+#' containing the p-value, quantile, and statistic.
 #' @param suppress_print_output Boolean value, FALSE by default. If TRUE, the function will not print any
 #' output to the console.
-#' @details The "independence" portmanteau test is a test of independence and identical distributuion based on a
+#' @details The "independence" portmanteau test is a test of independence and identical distribution based on a
 #' dimensionality reduction by projecting the data onto the most important functional principal components.
 #' It is based on the resulting lagged cross-variances. This test is not for general white noise series, and
 #' may not hold under functional conditionally heteroscedastic assumptions. Please consult the vignette for a
@@ -299,7 +302,7 @@ spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', a
 #' containing a short description of the test, the p-value, and additional information about the test if
 #' suppress_print_output = FALSE.
 #' @references
-#' Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
+#' [1] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
 #' Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.
 #'
 #' @examples

@@ -8,12 +8,12 @@
 far_1_S(N, J, S, type = "IID", burn_in = 50)
 }
 \arguments{
-\item{N}{the number of FGARCH(1,1) curves to sample.}
+\item{N}{the number of fGARCH(1,1) curves to sample.}
 
 \item{J}{the number of points at which each curve is sampled (the resolution of the data).}
 
 \item{S}{the autoregressive operator of the model, between 0 and 1, indicating the level of
-conditional heterskedasticity.}
+conditional heteroscedasticity.}
 
 \item{type}{the assumed model of the error term. The default argument is 'IID', under which
 the errors are assumed to be independent and identically distributed. The alternative argument

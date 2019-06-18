@@ -15,8 +15,8 @@ spectral_test(f_data, kernel = "Bartlett", bandwidth = "adaptive",
 'Bartlett' and  'Parzen' kernels. The default kernel is 'Bartlett'.}
 
 \item{bandwidth}{A String or positive Integer value which specifies the bandwidth to use. Currently admitted
-string handles are 'static' which computes the bandwith p via p = n^(1/(2q+1)) where n is the sample size
-and q is the kernel order, or 'adaptive' which uses a bandwith selection method that is based on the
+string handles are 'static' which computes the bandwidth p via p = n^(1/(2q+1)) where n is the sample size
+and q is the kernel order, or 'adaptive' which uses a bandwidth selection method that is based on the
 functional data.}
 
 \item{alpha}{Numeric value between 0 and 1 specifying the significance level to be used for the test.
@@ -24,7 +24,7 @@ The significance level is 0.05 by default. Note, the significance value is only 
 1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
 \item{suppress_raw_output}{Boolean value, FALSE by default. If TRUE, the function will not return the list
-contining the p-value, quantile, and statistic.}
+containing the p-value, quantile, and statistic.}
 
 \item{suppress_print_output}{Boolean value, FALSE by default. If TRUE, the function will not print any
 output to the console.}
@@ -39,7 +39,7 @@ suppress_print_output = FALSE.
 The "spectral" portmanteau test is based on the spectral density operator. It essentially measures
 the proximity of a functional time series to a white noise - the constant spectral density operator of an
 uncorrelated series. Unlike the "single-lag" and "multi-lag" tests, this test is not for general white noise
-series, and may not hold under functional conditionally heterscedastic assumptions.
+series, and may not hold under functional conditionally heteroscedastic assumptions.
 }
 \details{
 \code{spectral_test} Computes the spectral hypothesis test under a user-specified kernel function and
@@ -53,6 +53,9 @@ spectral_test(b, kernel = 'Bartlett', bandwidth = 2)
 
 }
 \references{
-Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
+[1] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
 spectral density operator. Econometrics and Statistics, submitted.
+
+[2] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications.
+Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130.
 }

@@ -32,7 +32,7 @@
 #' hypothesis test is evaluated by approximating the limiting distribution of the test statistic via a block
 #' bootstrapping process.
 #' @param block_size Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer
-#' value, with the default value being computed via the adaptive bandwith selection method in the "spectral" test.
+#' value, with the default value being computed via the adaptive bandwidth selection method in the "spectral" test.
 #' Determines the block size (of each block in each bootstrap sample) if the test is being bootstrapped.
 #' @param straps Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer with
 #' a default value of 300. Determines the number of bootstrap samples to take if the test is being bootstrapped.
@@ -41,17 +41,17 @@
 #' @param alpha Numeric value between 0 and 1 specifying the significance level to be used in the specified
 #' hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
 #' 1-alpha quantile of the limiting distribution of the specified test's test statistic.
-#' @param complete_test A Boolean value, FALSE by default. If TRUE, the function requires no other paramters
-#' other than f_data, and will return a table with a signle column containing p-values from an array of tests
+#' @param complete_test A Boolean value, FALSE by default. If TRUE, the function requires no other parameters
+#' other than f_data, and will return a table with a single column containing p-values from an array of tests
 #' contained in the rows.
 #' @param suppress_raw_output A Boolean value, FALSE by default. If given TRUE, the function will not return a
 #' list containing the p-value, quantile and statistic, and instead only prints output to the console.
 #' @param suppress_print_output A Boolean value, FALSE by default. If TRUE, the function will not print any
 #' output to the console.
 #' @details The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
-#' functional data. This test asseses the significance of lagged autocovariance operators at a single, user-specified
+#' functional data. This test assesses the significance of lagged autocovariance operators at a single, user-specified
 #' lag h. More specifically, it tests the null hypothesis that the lag-h autocovariance operator is equal to 0.
-#' This test is desgined for stationary functional time-series, and is valid under conditional heteroscedasticity
+#' This test is designed for stationary functional time-series, and is valid under conditional heteroscedasticity
 #' conditions.
 #' The required parameter for this test are 'lag', which determines the lag at which the test is evaluated. If this
 #' parameter is left blank, it will take a default of 1.
@@ -59,11 +59,11 @@
 #' and 'alpha'.
 #'
 #' The "multi-lag" portmanteau test is also based on the sample autocovariance function computed from the functional
-#' data. This test asseses the cumulative significance of lagged autocovariance operators, up to a user-selected
+#' data. This test assesses the cumulative significance of lagged autocovariance operators, up to a user-selected
 #' maximum lag K. More specifically, it tests the null hypothesis that the first K lag-h autocovariance operators
-#' (h going from 1 to K) is equal to 0. This test is desgined for stationary functional time-series, and is valid
+#' (h going from 1 to K) is equal to 0. This test is designed for stationary functional time-series, and is valid
 #' under conditional heteroscedasticity conditions.
-#' The required parameter for this test is 'lag', which determines the maxmimum lag at which the test is evaluated.
+#' The required parameter for this test is 'lag', which determines the maximum lag at which the test is evaluated.
 #' If this parameter is left blank, it will take a default of 20.
 #' The optional parameters for this test are 'iid', 'M', 'low_disc', 'bootstrap', 'block_size', 'straps', 'moving',
 #' and 'alpha'.
@@ -71,10 +71,10 @@
 #' The "spectral" portmanteau test is based on the spectral density operator. It essentially measures the proximity of a
 #' functional time series to a white noise - the constant spectral density operator of an uncorrelated series.
 #' Unlike the "single-lag" and "multi-lag" tests, this test is not for general white noise series, and may not hold
-#' under functional conditionally heterscedastic assumptions.
+#' under functional conditionally heteroscedastic assumptions.
 #' The optional parameters for this test are 'kernel', 'bandwidth', and 'alpha'.
 #'
-#' The "independence" portmanteau test is a test of independence and identical distributuion based on a dimensionality
+#' The "independence" portmanteau test is a test of independence and identical distribution based on a dimensionality
 #' reduction by projecting the data onto the most important functional principal components. It is based on the
 #' resulting lagged cross-variances. This test is not for general white noise series, and may not hold under
 #' functional conditionally heteroscedastic assumptions.
@@ -85,7 +85,7 @@
 #'
 #' The "imhof" portmanteau test is an analogue of the "single-lag" test. While the "single-lag" test computes the
 #' limiting distribution of the test statistic via a Welch-Satterthwaite approximation, the "imhof" test directly
-#' computes the coefficents of the quadratic form in Normal variables which the test statistic converges too as
+#' computes the coefficients of the quadratic form in Normal variables which the test statistic converges too as
 #' the sample size goes to infinity. We warn the user that this test is extremely computationally expensive, and
 #' is only recommended for small datasets as a means of cross-verification against the single-lag test.
 #' The required parameter for this test is 'lag', which determines the lag at which the test is evaluated.
@@ -98,17 +98,20 @@
 #' the p-values for a variety of tests, which are given short descriptions in the index of the table.
 #'
 #' @references
-#' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+#' [1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 #' under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 #'
-#' Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
+#' [2] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
 #' spectral density operator. Econometrics and Statistics, submitted.
 #'
-#' Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
+#' [3] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
 #' Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.
 #'
-#' Zhang X. (2016). White noise testing and model diagnostic checking for functional time series.
+#' [4] Zhang X. (2016). White noise testing and model diagnostic checking for functional time series.
 #' Journal of Econometrics, 194, 76-95.
+#'
+#' [5] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications.
+#' Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130.
 #'
 #' @examples
 #' b <- brown_motion(250, 50)
@@ -235,9 +238,10 @@ Press [enter] if you would like to continue.")
 
 #' Plot Confidence Bounds of Estimated Functional Autocorrelation Coefficients
 #'
-#' \code{autocorrelation_coeff_plot} Computes the 1-alpha confidence bounds for the functional
-#' autocorrelation coefficients at lags h = 1:K under both weak white noise and strong white
-#' noise assumptions. It plots the coefficients as well as the bounds for all lags h = 1:K.
+#' \code{autocorrelation_coeff_plot} Computes the 1-alpha upper confidence bounds for the functional
+#' autocorrelation coefficients at lags h = 1:K under both weak white noise (WWN) and strong white
+#' noise (SWN) assumptions. It plots the coefficients as well as the bounds for all lags h = 1:K.
+#' Note, the SWN bound is constant, while the WWN is dependent on the lag.
 #'
 #' @param f_data The functional data matrix with observed functions in the columns.
 #' @param K A positive Integer value. The maximum lag for which to compute the single-lag test (tests
@@ -251,14 +255,14 @@ Press [enter] if you would like to continue.")
 #' Requires the 'fOptions' package.
 #' @details This function computes and plots autocorrelation coefficients at lag h, for h in 1:K. It also
 #' computes an estimated asymptotic 1 - alpha confidence bound, under the assumption that the series
-#' forms a weak white noise. Additionally, it computes a similar bound under the assumption the the series
-#' form a strong white noise. Please see the vignette or the references for a more complete treatment.
+#' forms a weak white noise. Additionally, it computes a similar (constant) bound under the assumption the
+#' series form a strong white noise. Please see the vignette or the references for a more complete treatment.
 #' @return Plot of the estimated autocorrelation coefficients for lags h in 1:K with the weak
-#' white noise 1-alpha confidence bound for each lag, as well as the constant strong white noise 1-alpha
-#' confidence bound.
+#' white noise 1-alpha upper  confidence bound for each lag, as well as the constant strong white
+#' noise 1-alpha confidence bound.
 #'
 #' @references
-#' Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+#' [1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 #' under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 #'
 #' @examples
@@ -291,6 +295,6 @@ autocorrelation_coeff_plot <- function(f_data, K=20, alpha=0.05, M=NULL, low_dis
   lines(B_h_bounds, col='blue', lty='dotted')
   lines(rep(B_iid_bound(f_data), K), col='red', lty='solid')
   legend('topleft',
-         legend=c('Estimated Autocorrelation Coefficients', 'GARCH Bound', 'IID Bound'),
+         legend=c('Estimated Autocorrelation Coefficients', 'WWN Bound', 'SWN Bound'),
          col=c('black', 'blue', 'red'), lty=c('solid', 'dotted', 'solid'), cex=0.75)
 }

@@ -25,19 +25,20 @@ Requires the 'fOptions' package.}
 }
 \value{
 Plot of the estimated autocorrelation coefficients for lags h in 1:K with the weak
-white noise 1-alpha confidence bound for each lag, as well as the constant strong white noise 1-alpha
-confidence bound.
+white noise 1-alpha upper  confidence bound for each lag, as well as the constant strong white
+noise 1-alpha confidence bound.
 }
 \description{
-\code{autocorrelation_coeff_plot} Computes the 1-alpha confidence bounds for the functional
-autocorrelation coefficients at lags h = 1:K under both weak white noise and strong white
-noise assumptions. It plots the coefficients as well as the bounds for all lags h = 1:K.
+\code{autocorrelation_coeff_plot} Computes the 1-alpha upper confidence bounds for the functional
+autocorrelation coefficients at lags h = 1:K under both weak white noise (WWN) and strong white
+noise (SWN) assumptions. It plots the coefficients as well as the bounds for all lags h = 1:K.
+Note, the SWN bound is constant, while the WWN is dependent on the lag.
 }
 \details{
 This function computes and plots autocorrelation coefficients at lag h, for h in 1:K. It also
 computes an estimated asymptotic 1 - alpha confidence bound, under the assumption that the series
-forms a weak white noise. Additionally, it computes a similar bound under the assumption the the series
-form a strong white noise. Please see the vignette or the references for a more complete treatment.
+forms a weak white noise. Additionally, it computes a similar (constant) bound under the assumption the
+series form a strong white noise. Please see the vignette or the references for a more complete treatment.
 }
 \examples{
 b <- brown_motion(75, 40)
@@ -46,6 +47,6 @@ autocorrelation_coeff_plot(b, M = 200, low_disc = TRUE)
 
 }
 \references{
-Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 }

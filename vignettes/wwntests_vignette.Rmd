@@ -19,9 +19,10 @@ knitr::opts_chunk$set(
 This package aims to provide a variety of hypothesis tests to be used on functional data, 
 testing assumptions of weak/strong white noise, conditional heteroscedasticity, and stationarity.
 
-We draw up some simple expositionary examples with a sample of brownian motion curves and a sample of FAR(1,0.75)-IID curves (which are conditionally heteroscedastic).
+We draw up some simple expository examples with a sample of Brownian motion curves and a sample of FAR(1,0.75)-IID curves (which are conditionally heteroscedastic).
 ```{r}
-library(wwntests)
+#library(wwntests)
+devtools::load_all()
 set.seed(1234)
 b <- brown_motion(N = 200, J = 100)
 f <- far_1_S(N = 200, J = 100, S = 0.75)
@@ -44,7 +45,7 @@ to the paper 'Inference for the autocovariance of a functional time series under
 Piotr Kokoszka, Gregory Rice, and Han Lin Shang.
 
 ### Applying the Single-Lag and Multi-Lag Tests to Data
-We try the single-lag tests with a lag of 1, and the multi-lag test with a maximum lag of 10 (note, the default signficance level is $\alpha = 0.05$) on our functional Brownian motion and FAR data using the *fport_test* function and passing the string handles 'single-lag' and 'multi-lag' to the *test* parameter. For the single-lag test, the *lag* parameter determines the lag of the of the autocovariance function, and for the multi-lag test, it determines the maximum lag to include in $V_{T,K}$ (that is, lag = $K$).
+We try the single-lag tests with a lag of 1, and the multi-lag test with a maximum lag of 10 (note, the default significance level is $\alpha = 0.05$) on our functional Brownian motion and FAR data using the *fport_test* function and passing the string handles 'single-lag' and 'multi-lag' to the *test* parameter. For the single-lag test, the *lag* parameter determines the lag of the of the autocovariance function, and for the multi-lag test, it determines the maximum lag to include in $V_{T,K}$ (that is, lag = $K$).
 
 ```{r}
 fport_test(f_data = b, test = 'single-lag', lag = 1, suppress_raw_output = TRUE)
@@ -64,7 +65,7 @@ We omit any analysis of results here for the sake of brevity, however, one will 
 
 ### Visualizing the Single-Lag Test
 
-The nature of the single-lag test allows for a simple and illustrative visualization. The *autocorrelation_coeff_plot* plots estimated autocorrelation coefficients, which are defined by $\rho_h = \frac{||\gamma_h||}{\int y_0(t,t)\mu(dt)}$, over a range of lags. It also plots confidence bounds (for a significance level $\alpha$) for these coefficients under weak white noise (plottes in blue) and strong white noise assumptions (plotted in red). We remark that these bounds should be violated approximately $\alpha \%$ of the time if the underlying assumptions are satisfied.
+The nature of the single-lag test allows for a simple and illustrative visualization. The *autocorrelation_coeff_plot* plots estimated autocorrelation coefficients, which are defined by $\rho_h = \frac{||\gamma_h||}{\int y_0(t,t)\mu(dt)}$, over a range of lags. It also plots confidence bounds (for a significance level $\alpha$) for these coefficients under weak white noise (plotted in blue) and strong white noise assumptions (constant, plotted in red). We remark that these bounds should be violated approximately $\alpha \%$ of the time if the underlying assumptions are satisfied.
 We plot the single-lag autocorrelation plots for our Brownian motion and FAR data below.
 ```{r, fig.width=6, fig.height=4.25}
 autocorrelation_coeff_plot(f_data = b, K = 20)
@@ -76,14 +77,14 @@ autocorrelation_coeff_plot(f_data = f, K = 20)
 
 ## The Spectral Density Test
 
-The single-lag test, and in particular, the multi-lag test, are computationally expensive. Another supported test, referred to by its string handle 'spectral', which is significantly faster. The drawback of this test, is thata it is not built for general white noise (e.g. functional conditionally heterscedastic) series. It is based on the spectral density operator $\mathscr{F}(\omega) = \frac{1}{2\pi} \sum_{j \in \mathbb{Z}} C(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $C(j)$ are the autocovariance operators, $C(j) = E[X_j \otimes X_0], j \in \mathbb{Z}$. These operators are esimated by $\hat{C}_n(j) = \frac{1}{n} \sum_{t = j+1}^n u_t \otimes u_{t-j}, 0 \le j < n$ and $\hat{\mathscr{F}}_n(\omega) = \frac{1}{2\pi} \sum_{|j|<n} k(\frac{j}{p_n})\hat{C}_n(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $k$ is a user-chosen kernel function and $p_n$ is the bandwidth parameter (or lag-window); it may either me a user-inputter positive integer, computed from the sample size via $p_n = n^{\frac{1}{2q+1}}$, or computed via a data-adaptive process (please see Kokoszka, Rice, Shang for a complete treatment of this process).
-Currently supported kernel functions are the Barlett and Parzen kernels:
+The single-lag test, and in particular, the multi-lag test, are computationally expensive. Another supported test, referred to by its string handle 'spectral', which is significantly faster. The drawback of this test, is that it is not built for general white noise (e.g. functional conditionally heteroscedastic) series. It is based on the spectral density operator $\mathscr{F}(\omega) = \frac{1}{2\pi} \sum_{j \in \mathbb{Z}} C(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $C(j)$ are the autocovariance operators, $C(j) = E[X_j \otimes X_0], j \in \mathbb{Z}$. These operators are estimated by $\hat{C}_n(j) = \frac{1}{n} \sum_{t = j+1}^n u_t \otimes u_{t-j}, 0 \le j < n$ and $\hat{\mathscr{F}}_n(\omega) = \frac{1}{2\pi} \sum_{|j|<n} k(\frac{j}{p_n})\hat{C}_n(j)e^{-ij\omega}, \omega \in [-\pi, \pi]$, where $k$ is a user-chosen kernel function and $p_n$ is the bandwidth parameter (or lag-window); it may either be a user-inputted positive integer, computed from the sample size via $p_n = n^{\frac{1}{2q+1}}$, or computed via a data-adaptive process (please see Kokoszka, Rice, Shang for a complete treatment of this process).
+Currently supported kernel functions are the Bartlett and Parzen kernels:
 $$
 \begin{align*}
 k_B(x) &= \begin{cases}
 1 - |x| & \text{ for } |x| \le 1 \\
 0 & \text{ otherwise }
-\end{cases} & \text{(Barlett)}
+\end{cases} & \text{(Bartlett)}
 \\
 k_P(x) &= \begin{cases}
 1 - 6x^2 + 6|x|^3 & \text{ for } 0 \le |x| \le \frac{1}{2} \\
@@ -101,7 +102,7 @@ The test statistic is:
 $$
 T_n = T_n(k, p_n) = \frac{2^{-1} n \hat{Q}_n^2 - \hat{\sigma}_n^4C_n(k)}{||\hat{C}_n(0)||_2^2 \sqrt{2D_n(k)}}, n \ge 1
 $$
-, where $\hat{\sigma}^2_n = n^{-1} \sum_{t=1}^n ||X_t||^2$, $C_n(k) = \sum_{j=1}^{n-1}(1 - \frac{j}{n})k^2(\frac{j}{p_n})$, and $D_n(k) = \sum_{j=1}^{n-2} (1 - \frac{j}{n})(1 - \frac{j+1}{n})k^4(\frac{j}{p_n})$. We actually use a power transformation of this test statistic proposed by Chen and Deo ***FOOTNOTE***, but this is quite involved and we direct the reader again to Kokoszka, Rice and Shang.
+, where $\hat{\sigma}^2_n = n^{-1} \sum_{t=1}^n ||X_t||^2$, $C_n(k) = \sum_{j=1}^{n-1}(1 - \frac{j}{n})k^2(\frac{j}{p_n})$, and $D_n(k) = \sum_{j=1}^{n-2} (1 - \frac{j}{n})(1 - \frac{j+1}{n})k^4(\frac{j}{p_n})$. We actually use a power transformation of this test statistic proposed by Chen and Deo [5], but this is quite involved and we will omit this (see [2], [5]).
 
 ### Applying the Spectral Density Test to Data
 
@@ -122,7 +123,7 @@ fport_test(f, test='spectral', bandwidth = 'adaptive', alpha = 0.01, suppress_ra
 
 ## Independence Test
 
-Performs a test for independence and identical distribution of functional observations. The test relies on a dimensional reduction via a projection of the data on the K most important functional pricnipal components. The empirical autocovariance operator is given by
+Performs a test for independence and identical distribution of functional observations. The test relies on a dimensional reduction via a projection of the data on the K most important functional principal components. The empirical autocovariance operator is given by
 $$ C_N(x) = \frac{1}{N} \sum_{n=1}^N \langle X_n x \rangle X_n, x \in L^2[0,1) $$
 , (where $N$ is the sample size) and the (empirical) eigenelements of $C_N$ are defined by
 $$
@@ -144,7 +145,7 @@ $$
 
 ### Applying the Independence Test to Data
 
-The 'components' parameter (denoted by p above) determines how many functional principal componenents to use (kept in order of importance, which is determined by the proportion of the variance that each computed component explains). The 'lag' parameter (denoted by H above) determines the maximum lag to consider.
+The 'components' parameter (denoted by p above) determines how many functional principal components to use (kept in order of importance, which is determined by the proportion of the variance that each computed component explains). The 'lag' parameter (denoted by H above) determines the maximum lag to consider.
 We apply the independence test to our Brownian motion and FAR data.
 ```{r}
 fport_test(b, test = 'independence', components = 3, lag = 3, suppress_raw_output = TRUE)
@@ -158,4 +159,17 @@ fport_test(f, test = 'independence', components = 16, lag = 10, suppress_raw_out
 ### Suppressing Output
 
 The main hypothesis function *fport_test*, as well as all the individual test functions may return two forms of output. In the default configuration, when *suppress_raw_output* and *suppress_print_output* are given as FALSE, each function will first print to the console the name of the test, the null hypothesis being tested, the p-value of the test, the sample size of the functional data, and additional information that may be unique to the given test. It will then return a list containing the p-value, the value of the test statistic, and the quantile of the respective limiting distribution.
-Passing *suppress_print_output* = TRUE will cause the function to omit any output to the console. Passing *suppress_raw_output* = TRUE will cause the function to not return the list. Atleast one of these parameters must be TRUE.
+Passing *suppress_print_output* = TRUE will cause the function to omit any output to the console. Passing *suppress_raw_output* = TRUE will cause the function to not return the list. At least one of these parameters must be TRUE.
+
+## References
+
+[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
+
+[2] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the spectral density operator. Econometrics and Statistics, submitted.
+
+[3] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations. Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.
+
+[4] Zhang X. (2016). White noise testing and model diagnostic checking for functional time series. Journal of Econometrics, 194, 76-95.
+
+[5] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130.
+

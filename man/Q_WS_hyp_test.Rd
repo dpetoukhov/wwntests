@@ -24,7 +24,7 @@ By default is FALSE, in which the hypothesis test will use a weak-white noise as
 Carlo method. Note, low-discrepancy sampling will yield deterministic results.}
 
 \item{bootstrap}{boolean value, if given TRUE, the hypothesis test is done by approximating the
-limiting distribution of the test statistic via a block bootstrap algorithm. FALSE by deafult.}
+limiting distribution of the test statistic via a block bootstrap algorithm. FALSE by default}
 
 \item{block_size}{the block size to be used in the block bootstrap method (in each bootstrap sample).
 10 by default.}

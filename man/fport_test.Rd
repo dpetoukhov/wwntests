@@ -51,7 +51,7 @@ hypothesis test is evaluated by approximating the limiting distribution of the t
 bootstrapping process.}
 
 \item{block_size}{Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A positive Integer
-value, with the default value being computed via the adaptive bandwith selection method in the "spectral" test.
+value, with the default value being computed via the adaptive bandwidth selection method in the "spectral" test.
 Determines the block size (of each block in each bootstrap sample) if the test is being bootstrapped.}
 
 \item{moving}{Only used for the "single-lag" test in the case when 'bootstrap' = TRUE. A Boolean value, FALSE
@@ -64,8 +64,8 @@ a default value of 300. Determines the number of bootstrap samples to take if th
 hypothesis test. The default value is 0.05. Note, the significance value is only ever used to compute the
 1-alpha quantile of the limiting distribution of the specified test's test statistic.}
 
-\item{complete_test}{A Boolean value, FALSE by default. If TRUE, the function requires no other paramters
-other than f_data, and will return a table with a signle column containing p-values from an array of tests
+\item{complete_test}{A Boolean value, FALSE by default. If TRUE, the function requires no other parameters
+other than f_data, and will return a table with a single column containing p-values from an array of tests
 contained in the rows.}
 
 \item{suppress_raw_output}{A Boolean value, FALSE by default. If given TRUE, the function will not return a
@@ -87,9 +87,9 @@ package are accessible through this function.
 }
 \details{
 The "single-lag" portmanteau test is based on the sample autocovariance function computed from the
-functional data. This test asseses the significance of lagged autocovariance operators at a single, user-specified
+functional data. This test assesses the significance of lagged autocovariance operators at a single, user-specified
 lag h. More specifically, it tests the null hypothesis that the lag-h autocovariance operator is equal to 0.
-This test is desgined for stationary functional time-series, and is valid under conditional heteroscedasticity
+This test is designed for stationary functional time-series, and is valid under conditional heteroscedasticity
 conditions.
 The required parameter for this test are 'lag', which determines the lag at which the test is evaluated. If this
 parameter is left blank, it will take a default of 1.
@@ -97,11 +97,11 @@ The optional parameters for this test are 'iid', 'M', 'low_disc', 'bootstrap', '
 and 'alpha'.
 
 The "multi-lag" portmanteau test is also based on the sample autocovariance function computed from the functional
-data. This test asseses the cumulative significance of lagged autocovariance operators, up to a user-selected
+data. This test assesses the cumulative significance of lagged autocovariance operators, up to a user-selected
 maximum lag K. More specifically, it tests the null hypothesis that the first K lag-h autocovariance operators
-(h going from 1 to K) is equal to 0. This test is desgined for stationary functional time-series, and is valid
+(h going from 1 to K) is equal to 0. This test is designed for stationary functional time-series, and is valid
 under conditional heteroscedasticity conditions.
-The required parameter for this test is 'lag', which determines the maxmimum lag at which the test is evaluated.
+The required parameter for this test is 'lag', which determines the maximum lag at which the test is evaluated.
 If this parameter is left blank, it will take a default of 20.
 The optional parameters for this test are 'iid', 'M', 'low_disc', 'bootstrap', 'block_size', 'straps', 'moving',
 and 'alpha'.
@@ -109,10 +109,10 @@ and 'alpha'.
 The "spectral" portmanteau test is based on the spectral density operator. It essentially measures the proximity of a
 functional time series to a white noise - the constant spectral density operator of an uncorrelated series.
 Unlike the "single-lag" and "multi-lag" tests, this test is not for general white noise series, and may not hold
-under functional conditionally heterscedastic assumptions.
+under functional conditionally heteroscedastic assumptions.
 The optional parameters for this test are 'kernel', 'bandwidth', and 'alpha'.
 
-The "independence" portmanteau test is a test of independence and identical distributuion based on a dimensionality
+The "independence" portmanteau test is a test of independence and identical distribution based on a dimensionality
 reduction by projecting the data onto the most important functional principal components. It is based on the
 resulting lagged cross-variances. This test is not for general white noise series, and may not hold under
 functional conditionally heteroscedastic assumptions.
@@ -123,7 +123,7 @@ individual principal component.)
 
 The "imhof" portmanteau test is an analogue of the "single-lag" test. While the "single-lag" test computes the
 limiting distribution of the test statistic via a Welch-Satterthwaite approximation, the "imhof" test directly
-computes the coefficents of the quadratic form in Normal variables which the test statistic converges too as
+computes the coefficients of the quadratic form in Normal variables which the test statistic converges too as
 the sample size goes to infinity. We warn the user that this test is extremely computationally expensive, and
 is only recommended for small datasets as a means of cross-verification against the single-lag test.
 The required parameter for this test is 'lag', which determines the lag at which the test is evaluated.
@@ -141,15 +141,18 @@ fport_test(b, test = 'independence', components = 3, lag = 3)
 
 }
 \references{
-Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
+[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series
 under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
 
-Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
+[2] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the
 spectral density operator. Econometrics and Statistics, submitted.
 
-Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
+[3] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations.
 Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.
 
-Zhang X. (2016). White noise testing and model diagnostic checking for functional time series.
+[4] Zhang X. (2016). White noise testing and model diagnostic checking for functional time series.
 Journal of Econometrics, 194, 76-95.
+
+[5] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications.
+Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130.
 }
