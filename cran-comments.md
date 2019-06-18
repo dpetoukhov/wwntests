@@ -1,3 +1,9 @@
+## Resubmission
+This is a resubmission. In this version I have:
+* Added detail to the Description field in the DESCRIPTION file; now directly referencing the available tests.
+* Added references for the tests used to the Description field of the DESCRIPTION file, including DOI numbers.
+* Replaced all instances of the cat() function by message().
+
 ## Test environments
 * local macOS Sierra 10.12.6 install, R 3.4.0
 * Ubuntu 16.04.6 LTS (on travis-ci), R 3.6.0

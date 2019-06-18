@@ -66,7 +66,7 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
       if (moving == TRUE) {
         title_print <- sprintf(" Moving Block Bootstrapped Single-Lag Test\n\n")
       } else if (moving == FALSE) {
-        title_print <- sprintf(" Block Bootstrapped Single-Lag Test\n\n")
+        title_print <- sprintf("Block Bootstrapped Single-Lag Test\n\n")
       }
       test_type <- 'the series is a weak white noise\n'
       null_print <- sprintf("null hypothesis: %s", test_type)
@@ -75,7 +75,7 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
       lag_print <- sprintf("lag = %d\n", lag)
       boot_num <- sprintf("number of bootstrap samples = %d\n", straps)
       block_sze <- sprintf("block size = %d\n\n\n", results$block_size)
-      cat(c(title_print, null_print, p_val_print, samp_print,
+      message(c(title_print, null_print, p_val_print, samp_print,
             lag_print, boot_num, block_sze))
     }
     if (suppress_raw_output == FALSE) {
@@ -84,13 +84,12 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
   } else if (iid  == FALSE) {
     results <- Q_WS_hyp_test(f_data, lag, alpha=alpha, M=M, low_disc=low_disc)
     if (suppress_print_output == FALSE) {
-      title_print <- sprintf(" Single-Lag Test\n\n")
-      test_type <- 'the series is a weak white noise\n'
-      null_print <- sprintf("null hypothesis: %s", test_type)
+      title_print <- sprintf("Single-Lag Test\n\n")
+      null_print <- sprintf("null hypothesis: the series is uncorrelated at lag %d\n", lag)
       p_val_print <- sprintf("p-value = %f\n", results$p_value)
       samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
       lag_print <- sprintf("lag = %d\n\n\n", lag)
-      cat(c(title_print, null_print, p_val_print, samp_print,
+      message(c(title_print, null_print, p_val_print, samp_print,
             lag_print))
     }
     if (suppress_raw_output == FALSE) {
@@ -99,13 +98,13 @@ single_lag_test <- function(f_data, lag=1, alpha=0.05, iid=FALSE,
   } else if (iid == TRUE) {
     results <- Q_WS_hyp_test(f_data, iid = TRUE, lag = lag, alpha=alpha)
     if (suppress_print_output == FALSE) {
-      title_print <- sprintf(" Single-Lag Test (iid assumption)\n\n")
+      title_print <- sprintf("Single-Lag Test (iid assumption)\n\n")
       test_type <- 'the series is a strong white noise\n'
       null_print <- sprintf("null hypothesis: %s", test_type)
       p_val_print <- sprintf("p-value = %f\n", results$p_value)
       samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
       lag_print <- sprintf("lag = %d\n\n\n", lag)
-      cat(c(title_print, null_print, p_val_print, samp_print,
+      message(c(title_print, null_print, p_val_print, samp_print,
             lag_print))
     }
     if (suppress_raw_output == FALSE) {
@@ -166,14 +165,14 @@ multi_lag_test <- function(f_data, lag = 20, M=NULL, low_disc=FALSE, iid=FALSE,
   if (iid == FALSE) {
     results <- V_WS_quantile(f_data, K, alpha=alpha, M=M, low_disc=low_disc)
     if (suppress_print_output == FALSE) {
-      title_print <- sprintf(" Multi-Lag Test\n\n")
+      title_print <- sprintf("Multi-Lag Test\n\n")
       test_type <- 'the series is a weak white noise\n'
       null_print <- sprintf("null hypothesis: %s", test_type)
       p_val_print <- sprintf("p-value = %f\n", results$p_value)
       samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
       lag_print <- sprintf("maximum lag = %d\n", K)
       mc_print <- sprintf("number of monte-carlo simulations = %d\n\n\n", M)
-      cat(c(title_print, null_print, p_val_print, samp_print,
+      message(c(title_print, null_print, p_val_print, samp_print,
             lag_print, mc_print))
     }
     if (suppress_raw_output == FALSE) {
@@ -182,13 +181,13 @@ multi_lag_test <- function(f_data, lag = 20, M=NULL, low_disc=FALSE, iid=FALSE,
   } else {
     results <- V_WS_quantile_iid(f_data, K, alpha=alpha)
     if (suppress_print_output == FALSE) {
-      title_print <- sprintf(" Multi-Lag Test (iid assumption)\n\n")
+      title_print <- sprintf("Multi-Lag Test (iid assumption)\n\n")
       test_type <- 'the series is a strong white noise\n'
       null_print <- sprintf("null hypothesis: %s", test_type)
       p_val_print <- sprintf("p-value = %f\n", results$p_value)
       samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
       lag_print <- sprintf("maximum lag = %d\n\n\n", K)
-      cat(c(title_print, null_print, p_val_print, samp_print,
+      message(c(title_print, null_print, p_val_print, samp_print,
             lag_print))
     }
     if (suppress_raw_output == FALSE) {
@@ -253,7 +252,7 @@ spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', a
   p_val <- 1 - pnorm(statistic)
   results <- list(statistic = statistic, quantile = quantile, p_value = p_val, band = band)
   if (suppress_print_output == FALSE) {
-    title_print <- sprintf(" Spectral Test\n\n")
+    title_print <- sprintf("Spectral Test\n\n")
     test_type <- 'the series is iid\n'
     null_print <- sprintf("null hypothesis: %s", test_type)
     p_val_print <- sprintf("p-value = %f\n", results$p_value)
@@ -265,8 +264,8 @@ spectral_test <- function(f_data, kernel = 'Bartlett', bandwidth = 'adaptive', a
     } else {
       band_sel <- sprintf("bandwidth selection = %s\n\n\n", bandwidth)
     }
-    cat(c(title_print, null_print, p_val_print, samp_print, kern_print,
-          band_print, band_sel))
+    message(c(title_print, null_print, p_val_print, samp_print, kern_print,
+              band_print, band_sel))
   }
   if (suppress_raw_output == FALSE) {
     results[-4]
@@ -355,14 +354,14 @@ independence_test <- function(f_data, components, lag, alpha = 0.05,
   quantile <- as.numeric(qchisq(1 - alpha, df = components^2 * lag))
   results <- list(statistic = Q_n, quantile = quantile, p_value = p_val)
   if (suppress_print_output == FALSE) {
-    title_print <- sprintf(" Independence Test\n\n")
+    title_print <- sprintf("Independence Test\n\n")
     test_type <- 'the series is iid\n'
     null_print <- sprintf("null hypothesis: %s", test_type)
     p_val_print <- sprintf("p-value = %f\n", results$p_value)
     samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
     comp_print <- sprintf('number of principal components = %d\n', components)
     lag_print <- sprintf("maximum lag = %d\n\n\n", lag)
-    cat(c(title_print, null_print, p_val_print, comp_print,
+    message(c(title_print, null_print, p_val_print, comp_print,
           lag_print))
   }
   if (suppress_raw_output == FALSE) {

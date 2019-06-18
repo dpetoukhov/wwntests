@@ -162,13 +162,13 @@ Passing *suppress_print_output* = TRUE will cause the function to omit any outpu
 
 ## References
 
-[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50.
+[1] Kokoszka P., & Rice G., & Shang H.L. (2017). Inference for the autocovariance of a functional time series under conditional heteroscedasticity. Journal of Multivariate Analysis, 162, 32-50, DOI: 10.1016/j.jmva.2017.08.004 .
 
-[2] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the spectral density operator. Econometrics and Statistics, submitted.
+[2] Characiejus V., & Rice G. (2019). A general white noise test based on kernel lag-window estimates of the spectral density operator. Econometrics and Statistics, DOI: 10.1016/j.ecosta.2019.01.003 .
 
-[3] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations. Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111.
+[3] Gabrys R., & Kokoszka P. (2007). Portmanteau Test of Independence for Functional Observations. Journal of the American Statistical Association, 102:480, 1338-1348, DOI: 10.1198/016214507000001111 .
 
-[4] Zhang X. (2016). White noise testing and model diagnostic checking for functional time series. Journal of Econometrics, 194, 76-95.
+[4] Zhang X. (2016). White noise testing and model diagnostic checking for functional time series. Journal of Econometrics, 194, 76-95, DOI: 10.1016/j.jeconom.2016.04.004 .
 
-[5] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130.
+[5] Chen W.W. & Deo R.S. (2004). Power transformations to induce normality and their applications. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 66, 117–130, DOI: 10.1111/j.1467-9868.2004.00435.x .
 

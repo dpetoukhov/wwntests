@@ -220,13 +220,13 @@ Press [enter] if you would like to continue.")
     }
     results <- imhof_test(f_data, lag)
     if (suppress_print_output == FALSE) {
-      title_print <- sprintf(" Imhof Test\n\n")
+      title_print <- sprintf("Imhof Test\n\n")
       test_type <- 'the series is a weak white noise\n'
       null_print <- sprintf("null hypothesis: %s", test_type)
       p_val_print <- sprintf("p-value = %f\n", results$p_value)
       samp_print <- sprintf("sample size = %d\n", NCOL(f_data))
       lag_print <- sprintf("lag = %d\n\n\n", lag)
-      cat(c(title_print, null_print, p_val_print, samp_print,
+      message(c(title_print, null_print, p_val_print, samp_print,
             lag_print))
     }
     if (suppress_raw_output == FALSE) {
