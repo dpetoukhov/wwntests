@@ -2,7 +2,7 @@ Package: wwntests
 Type: Package
 Title: Hypothesis Tests for Functional Time Series
 Version: 1.0.0
-Author: Daniel Petoukhov
+Author: Daniel Petoukhov [aut, cre]
 Maintainer: Daniel Petoukhov <dvpetouk@uwaterloo.ca>
 Authors@R: person("Daniel", "Petoukhov", email = "dvpetouk@uwaterloo.ca", role = c("aut", "cre"))
 Description: Provides an array of hypothesis tests for functional data and related visualizations, including 
