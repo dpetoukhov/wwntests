@@ -1,6 +1,6 @@
 ## Resubmission
 This is a resubmission. In this version I have:
-* Added detail to the Description field in the DESCRIPTION file; now directly referencing the available tests.
+* Added detail to the Description field in the DESCRIPTION file; now directly referencing the available tests. This has added an additional note about potentially mis-spelled words - none are actually mis-spelled.
 * Added references for the tests used to the Description field of the DESCRIPTION file, including DOI numbers.
 * Replaced all instances of the cat() function by message().
 
@@ -18,4 +18,10 @@ There was 1 NOTE:
 * checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Daniel Petoukhov <dvpetouk@uwaterloo.ca>'
   New submission
+  Possibly mis-spelled words in DESCRIPTION:
+    Gabrys (13:43)
+    Kokoszka (12:16, 13:54)
+    al (12:28)
+    Characiejus (12:73)
+    et (12:25)
 
