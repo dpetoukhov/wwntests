@@ -17,7 +17,7 @@ Using the *devtools* package:
 ``` r
 install.packages("devtools")
 library(devtools)
-install_github("jimthemadmanlahey/wwntests")
+install_github("dpetoukhov/wwntests")
 ```
 
 ## CRAN
